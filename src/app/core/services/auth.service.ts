@@ -1,3 +1,7 @@
+import { HttpClient } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { environment } from "../../../environments/environments";
+import { BehaviorSubject, Observable } from "rxjs";
 
 
 export interface User {
@@ -36,3 +40,21 @@ export interface ApiResponse {
     data:any;
 }
 
+
+export class AuthService {
+    private http = inject(HttpClient);
+    private apiUrl = environment.apiUrl;
+    private currentUserSubject = new BehaviorSubject<User | null>(null);
+    public currentUser$ = this.currentUserSubject.asObservable();
+
+    constructor(){
+        const token = this.getToken();
+        if(token){
+            this.getUserData().subscribe();
+        }
+    }
+
+    register(userData: any):Observable<ApiResponse>{
+        return this.http.post(`${this.apiUrl}/account/register/`,userData);
+    }
+}
