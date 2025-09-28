@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { environment } from "../../../environments/environments";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, tap } from "rxjs";
 
 
 export interface User {
@@ -63,7 +63,19 @@ export class AuthService {
       email,
       otp_code: otpCode
     });
-  }
+    }
+
+    login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/account/login/`, credentials)
+      .pipe(
+        tap(response => {
+          if (response.data?.access) {
+            this.setToken(response.data.access);
+          }
+        })
+      );
+    }
+
 
 
 }
