@@ -54,7 +54,16 @@ export class AuthService {
         }
     }
 
-    register(userData: any):Observable<ApiResponse>{
-        return this.http.post(`${this.apiUrl}/account/register/`,userData);
+    register(userData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(`${this.apiUrl}/account/register/`, userData);
     }
+
+    verifyOtp(email: string, otpCode: string): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.apiUrl}/account/verify-otp/`, {
+      email,
+      otp_code: otpCode
+    });
+  }
+
+
 }
