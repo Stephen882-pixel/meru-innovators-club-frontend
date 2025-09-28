@@ -29,3 +29,10 @@ export interface AuthResponse {
         access:string;
     };
 }
+
+export interface ApiResponse {
+    message:string;
+    status:string;
+    data:any;
+}
+
