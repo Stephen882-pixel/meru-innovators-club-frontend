@@ -146,6 +146,10 @@ export class AuthService {
       return localStorage.getItem('access_token');
     }
 
+    private clearAuth():void {
+      localStorage.removeItem('access_token');
+      this.currentUserSubject.next(null);
+    }
     
 
 }
