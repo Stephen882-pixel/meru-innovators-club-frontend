@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Login } from './auth/login/login';
 import { Dashboard } from './auth/dashboard/dashboard';
 import { VerifyOtp } from './auth/verify-otp/verify-otp';
+import {ForgotPassword} from './auth/forgot-password/forgot-password';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
     {
         path:'verify-otp',
         component:VerifyOtp
+    },
+    {
+        path:'forgot-password',
+        component:ForgotPassword
     }
     // {
     //     path:'',
