@@ -18,7 +18,7 @@ export class Register {
     private router = inject(Router);
 
     isLoading = false;
-    error_message = '';
+    errorMessage = '';
     successMessage = '';
 
     registerForm = this.fb.group({
@@ -33,7 +33,7 @@ export class Register {
     onSubmit(){
       if(this.registerForm.valid){
         this.isLoading = true;
-        this.error_message = '';
+        this.errorMessage = '';
         this.successMessage = '';
 
         this.authService.register(this.registerForm.value).subscribe({
@@ -47,7 +47,7 @@ export class Register {
           },
           error: (error) => {
             this.isLoading = false;
-            this.error_message = error.error?.message || 'Registration Failed. Please try again.';
+            this.errorMessage = error.error?.message || 'Registration Failed. Please try again.';
           }
         });
       }
