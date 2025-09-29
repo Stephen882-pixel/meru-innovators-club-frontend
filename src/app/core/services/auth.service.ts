@@ -77,5 +77,12 @@ export class AuthService {
     }
 
 
+    requestPasswordReset(email:string): Observable<ApiResponse>{
+      return this.http.post<ApiResponse>(`${this.apiUrl}/account/password-reset/request/`,{
+        email
+      });
+    }
+
+
 
 }
