@@ -90,7 +90,14 @@ export class AuthService {
       });
     }
 
-    
+    changePassword(passwordData:{
+      old_password:string;
+      new_password:string;
+      confirm_password:string;
+    }):Observable<ApiResponse>{
+      return this.http.post<ApiResponse>(`${this.apiUrl}/account/change-password/`,passwordData);
+    }
 
+    
 
 }
