@@ -1,1 +1,72 @@
-<p>dashboard works!</p>
+<div class="min-h-screen bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+        <div class="flex items-center">
+            <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club
+            </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button
+            (click)="navigateToProfile()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+            >
+            My Profile
+            </button>
+            <button
+            (click)="logout()"
+            class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium"
+            >
+            Logout
+            </button>
+        </div>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+            Welcome to Meru University Science Innovators Club (MUSIC)
+            </h2>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+            <p class="text-blue-800">
+                Hello <strong>{{ user?.first_name }} {{ user?.last_name }}</strong>! 
+                Welcome to our innovative community where science and technology meet creativity.
+            </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            <!-- Quick Stats -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-medium text-gray-900">Your Profile</h3>
+                <p class="mt-2 text-sm text-gray-600">
+                Complete your profile to get the most out of MUSIC club.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-medium text-gray-900">Projects</h3>
+                <p class="mt-2 text-sm text-gray-600">
+                Share and collaborate on innovative projects.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-medium text-gray-900">Events</h3>
+                <p class="mt-2 text-sm text-gray-600">
+                Participate in upcoming club events and workshops.
+                </p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </main>
+</div>
