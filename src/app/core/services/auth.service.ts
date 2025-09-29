@@ -150,6 +150,9 @@ export class AuthService {
       localStorage.removeItem('access_token');
       this.currentUserSubject.next(null);
     }
-    
+
+    isAuthenticated(): boolean {
+      return !!this.getToken();
+    }
 
 }
