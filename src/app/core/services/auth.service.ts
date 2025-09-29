@@ -109,6 +109,15 @@ export class AuthService {
         );
     }
 
-    
+    updateUserProfile(userData:any):Observable<ApiResponse> {
+      return this.http.patch<ApiResponse>(`${this.apiUrl}/account/update-user-profile/`, userData)
+        .pipe(
+          tap(response => {
+            if(response.data){
+              this.currentUserSubject.next(response.data);
+            }
+          })
+        );
+    }
 
 }
