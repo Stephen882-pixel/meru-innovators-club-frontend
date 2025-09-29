@@ -138,6 +138,10 @@ export class AuthService {
         );
     }
 
+    private setToken(token:string):void {
+      localStorage.setItem('access_token',token);
+    }
+
     
 
 
