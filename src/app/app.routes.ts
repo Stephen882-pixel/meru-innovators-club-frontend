@@ -5,6 +5,7 @@ import { Login } from './auth/login/login';
 import { Dashboard } from './auth/dashboard/dashboard';
 import { VerifyOtp } from './auth/verify-otp/verify-otp';
 import {ForgotPassword} from './auth/forgot-password/forgot-password';
+import {ResetPasswordOtp} from './auth/reset-password-otp/reset-password-otp';
 
 export const routes: Routes = [
     {
@@ -26,14 +27,9 @@ export const routes: Routes = [
     {
         path:'forgot-password',
         component:ForgotPassword
+    },
+    {
+        path:'reset-password-otp',
+        component: ResetPasswordOtp
     }
-    // {
-    //     path:'',
-    //     component:Register,
-    //     children[
-    //         {
-    //             loadChildren: () => import('app/auth/register/register.routes.ts')
-    //         }
-    //     ]
-    // }
 ];
