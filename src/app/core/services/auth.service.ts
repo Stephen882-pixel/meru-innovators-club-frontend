@@ -129,6 +129,16 @@ export class AuthService {
       );
   }
 
+    deleteAccount(): Observable<any> {
+      return this.http.delete(`${this.apiUrl}/account/delete-account/`)
+        .pipe(
+          tap(() => {
+            this.clearAuth();
+          })
+        );
+    }
+
+    
 
 
 }
