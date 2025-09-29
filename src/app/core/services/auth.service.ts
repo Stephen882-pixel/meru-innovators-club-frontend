@@ -142,7 +142,10 @@ export class AuthService {
       localStorage.setItem('access_token',token);
     }
 
-    
+    getToken():string | null {
+      return localStorage.getItem('access_token');
+    }
 
+    
 
 }
