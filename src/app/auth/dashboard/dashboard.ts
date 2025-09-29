@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService, User } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   standalone:true,
   imports: [CommonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  styleUrls: ['./dashboard.scss']
 })
 export class Dashboard implements OnInit {
 

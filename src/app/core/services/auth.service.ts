@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { inject } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environments";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 
@@ -40,7 +40,9 @@ export interface ApiResponse {
     data:any;
 }
 
-
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
     private http = inject(HttpClient);
     private apiUrl = environment.apiUrl;

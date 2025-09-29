@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone:true,
   imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './verify-otp.html',
-  styleUrl: './verify-otp.scss'
+  styleUrls: ['./verify-otp.scss']
 })
 export class VerifyOtp implements OnInit {
 

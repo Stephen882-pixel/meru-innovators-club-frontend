@@ -1,25 +1,34 @@
 import { Routes } from '@angular/router';
+import { Register } from './auth/register/register';
+import { Component } from '@angular/core';
+import { Login } from './auth/login/login';
+import { Dashboard } from './auth/dashboard/dashboard';
+import { VerifyOtp } from './auth/verify-otp/verify-otp';
 
 export const routes: Routes = [
     {
         path:'',
-        redirectTo:'/dashboard',
-        pathMatch:'full'
-    },
-    {
-        path:'register',
-        loadComponent: () => import('./auth/register/register').then(c => c.Register)
+        component:Register
     },
     {
         path:'login',
-        loadComponent: () => import('./auth/login/login').then(c => c.Login)
+        component:Login
+    },
+    {
+        path:'dashboard',
+        component:Dashboard
     },
     {
         path:'verify-otp',
-        loadComponent: () => import('./auth/verify-otp/verify-otp').then(c => c.VerifyOtp)
-    },
-    {
-        path:'dashboad',
-        loadComponent: () => import('./auth/dashboard/dashboard').then(c => c.Dashboard)
-    }    
+        component:VerifyOtp
+    }
+    // {
+    //     path:'',
+    //     component:Register,
+    //     children[
+    //         {
+    //             loadChildren: () => import('app/auth/register/register.routes.ts')
+    //         }
+    //     ]
+    // }
 ];
