@@ -98,6 +98,17 @@ export class AuthService {
       return this.http.post<ApiResponse>(`${this.apiUrl}/account/change-password/`,passwordData);
     }
 
+    getUserData():Observable<ApiResponse>{
+      return this.http.get<ApiResponse>(`${this.apiUrl}/account/get-user-data/`)
+        .pipe(
+          tap(response => {
+            if(response.data){
+              this.currentUserSubject.next(response.data);
+            }
+          })
+        );
+    }
+
     
 
 }
