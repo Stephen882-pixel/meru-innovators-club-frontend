@@ -120,4 +120,15 @@ export class AuthService {
         );
     }
 
+    logout(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/account/logout/`, {})
+      .pipe(
+        tap(() => {
+          this.clearAuth();
+        })
+      );
+  }
+
+
+
 }
