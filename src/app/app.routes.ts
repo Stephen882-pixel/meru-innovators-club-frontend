@@ -7,6 +7,7 @@ import { VerifyOtp } from './auth/verify-otp/verify-otp';
 import {ForgotPassword} from './auth/forgot-password/forgot-password';
 import {ResetPasswordOtp} from './auth/reset-password-otp/reset-password-otp';
 import {ResetPassword} from './auth/reset-password/reset-password';
+import {ProfileView} from './profile/profile-view/profile-view';
 
 export const routes: Routes = [
     {
@@ -36,5 +37,9 @@ export const routes: Routes = [
     {
         path:'reset-password',
         component:ResetPassword
+    },
+    {
+        path:'profile',
+        component:ProfileView
     }
 ];

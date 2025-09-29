@@ -7,7 +7,7 @@ import { Dashboard } from "./auth/dashboard/dashboard";
 @Component({
   selector: 'app-root',
   standalone:true,
-  imports: [RouterOutlet, Register, Dashboard],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })

@@ -8,38 +8,39 @@ import {Router} from '@angular/router';
   standalone:true,
   imports: [CommonModule],
   templateUrl: './profile-view.html',
-  styleUrl: './profile-view.scss'
+  styleUrls: ['./profile-view.scss']
 })
 export class ProfileView implements  OnInit{
 
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  user:User | null = null;
+  user: User | null = null;
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
     });
 
-    if(!this.user){
+    // Load user data if not already loaded
+    if (!this.user) {
       this.authService.getUserData().subscribe();
     }
   }
 
-  navigateToDashboard(){
+  navigateToDashboard() {
     this.router.navigate(['/dashboard']);
   }
 
-  navigateToEditProfile(){
+  navigateToEditProfile() {
     this.router.navigate(['/profile/edit']);
   }
 
-  changePassword(){
+  changePassword() {
     this.router.navigate(['/change-password']);
   }
 
-  logout(){
+  logout() {
     this.authService.logout().subscribe({
       next: () => {
         this.router.navigate(['/login']);
