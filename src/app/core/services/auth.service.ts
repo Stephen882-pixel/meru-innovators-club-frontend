@@ -83,6 +83,14 @@ export class AuthService {
       });
     }
 
+    resetPassword(email:string,newPassword:string):Observable<ApiResponse>{
+      return this.http.post<ApiResponse>(`${this.apiUrl}/account/password-reset/reset/`,{
+        email,
+        new_password:newPassword
+      });
+    }
+
+    
 
 
 }
