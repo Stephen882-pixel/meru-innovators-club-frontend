@@ -6,6 +6,7 @@ import { Dashboard } from './auth/dashboard/dashboard';
 import { VerifyOtp } from './auth/verify-otp/verify-otp';
 import {ForgotPassword} from './auth/forgot-password/forgot-password';
 import {ResetPasswordOtp} from './auth/reset-password-otp/reset-password-otp';
+import {ResetPassword} from './auth/reset-password/reset-password';
 
 export const routes: Routes = [
     {
@@ -31,5 +32,9 @@ export const routes: Routes = [
     {
         path:'reset-password-otp',
         component: ResetPasswordOtp
+    },
+    {
+        path:'reset-password',
+        component:ResetPassword
     }
 ];
