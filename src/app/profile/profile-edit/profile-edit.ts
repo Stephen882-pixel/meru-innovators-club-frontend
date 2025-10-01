@@ -90,6 +90,16 @@ export class ProfileEdit  implements OnInit{
     this.skills.removeAt(index);
   }
 
+  addProject(){
+    const projectGroup = this.fb.group({
+      name: ['',Validators.required],
+      description:[''],
+      link:[''],
+      technologies:this.fb.array([])
+    });
+    this.projects.push(projectGroup);
+  }
+
 
 
 }
