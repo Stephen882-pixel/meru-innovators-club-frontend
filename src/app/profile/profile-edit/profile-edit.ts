@@ -66,6 +66,9 @@ export class ProfileEdit  implements OnInit{
     return this.profileForm.get('skills') as FormArray;
   }
 
+  get projects(){
+    return this.profileForm.get('projects') as FormArray;
+  }
 
 
 }
