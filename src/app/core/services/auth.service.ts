@@ -157,6 +157,6 @@ export class AuthService {
       return !!this.getToken();
     }
 
-    
+
 
 }
