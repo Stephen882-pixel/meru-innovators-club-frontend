@@ -208,7 +208,9 @@ export class ProfileEdit  implements OnInit{
   }
 
   cancel(){
-
+    this.router.navigate(['/profile']);
   }
+
+
 
 }
