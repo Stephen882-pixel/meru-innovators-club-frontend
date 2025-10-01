@@ -8,6 +8,7 @@ import {ForgotPassword} from './auth/forgot-password/forgot-password';
 import {ResetPasswordOtp} from './auth/reset-password-otp/reset-password-otp';
 import {ResetPassword} from './auth/reset-password/reset-password';
 import {ProfileView} from './profile/profile-view/profile-view';
+import {ProfileEdit} from './profile/profile-edit/profile-edit';
 
 export const routes: Routes = [
     {
@@ -41,5 +42,9 @@ export const routes: Routes = [
     {
         path:'profile',
         component:ProfileView
+    },
+    {
+      path:'profile-edit',
+      component:ProfileEdit
     }
 ];

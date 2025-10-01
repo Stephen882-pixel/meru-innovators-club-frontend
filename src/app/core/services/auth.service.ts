@@ -4,6 +4,13 @@ import { environment } from "../../../environments/environments";
 import { BehaviorSubject, Observable, tap } from "rxjs";
 
 
+export interface Project {
+    name:string;
+    description:string;
+    link:string;
+    technologies:string[];
+}
+
 export interface User {
     id:number;
     username: string;
@@ -21,9 +28,10 @@ export interface User {
     };
     photo: string | null;
     graduation_year:string;
-    projects:any[];
+    projects:Project[];
     skills:string[];
 }
+
 
 export interface AuthResponse {
     message:string;

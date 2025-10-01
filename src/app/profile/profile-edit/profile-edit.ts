@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService, User} from '../../core/services/auth.service';
+import {AuthService, User, Project} from '../../core/services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -175,19 +175,19 @@ export class ProfileEdit  implements OnInit{
         registration_no: formValue.registration_no,
         bio : formValue.bio,
         graduation_year : formValue.graduation_year,
-        tech_stacks : formValue.tech_stacks?.filter(tech => tech.trim() !== ''),
-        skills : formValue.skills?.filter(skill => skill.trim() !== ''),
+        tech_stacks : formValue.tech_stacks,
+        skills : formValue.skills,
         social_media : {
           github:formValue.github,
           linkedIn : formValue.linkedIn,
           twitter : formValue.twitter
         },
-        projects : formValue.projects?.map(project => ({
-          name:project.name,
+        projects : formValue.projects?.map((project: any) => ({
+          name: project.name,
           description: project.description,
-          link:project.link,
-          technologies: project.technologies?.filter(tech => tech.trim() !== '')
-        })).filter(project => project.name.trim() !== '')
+          link: project.link,
+          technologies: project.technologies?.filter((tech: string) => tech.trim() !== '')
+        })).filter((project: any) => project.name.trim() !== '')
       };
 
       this.authService.updateUserProfile(updateData).subscribe({

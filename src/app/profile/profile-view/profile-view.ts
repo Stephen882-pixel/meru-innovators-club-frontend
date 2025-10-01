@@ -33,7 +33,7 @@ export class ProfileView implements  OnInit{
   }
 
   navigateToEditProfile() {
-    this.router.navigate(['/profile/edit']);
+    this.router.navigate(['/profile-edit']);
   }
 
   changePassword() {
