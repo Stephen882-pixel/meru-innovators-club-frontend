@@ -1,0 +1,374 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - Edit Profile
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+          <button
+            (click)="navigateToProfile()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            View Profile
+          </button>
+          <button
+            (click)="logout()"
+            class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">Edit Your Profile</h2>
+          <p class="text-sm text-gray-600 mt-1">Update your information and showcase your skills</p>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <!-- Personal Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+              <input
+                id="first_name"
+                type="text"
+                formControlName="first_name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+
+            <div>
+              <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+              <input
+                id="last_name"
+                type="text"
+                formControlName="last_name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+
+            <div>
+              <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+              <input
+                id="username"
+                type="text"
+                formControlName="username"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="course" class="block text-sm font-medium text-gray-700">Course</label>
+              <input
+                id="course"
+                type="text"
+                formControlName="course"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+
+            <div>
+              <label for="registration_no" class="block text-sm font-medium text-gray-700">Registration Number</label>
+              <input
+                id="registration_no"
+                type="text"
+                formControlName="registration_no"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="year_of_study" class="block text-sm font-medium text-gray-700">Year of Study</label>
+              <select
+                id="year_of_study"
+                formControlName="year_of_study"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Select Year</option>
+                <option [value]="1">1st Year</option>
+                <option [value]="2">2nd Year</option>
+                <option [value]="3">3rd Year</option>
+                <option [value]="4">4th Year</option>
+                <option [value]="5">5th Year</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="graduation_year" class="block text-sm font-medium text-gray-700">Graduation Year</label>
+              <input
+                id="graduation_year"
+                type="number"
+                formControlName="graduation_year"
+                min="2023"
+                max="2030"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div>
+            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+            <textarea
+              id="bio"
+              formControlName="bio"
+              rows="4"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Tell us about yourself, your interests, and your goals..."
+            ></textarea>
+          </div>
+
+          <!-- Tech Stacks -->
+          <div>
+            <div class="flex justify-between items-center">
+              <label class="block text-sm font-medium text-gray-700">Tech Stacks</label>
+              <button
+                type="button"
+                (click)="addTechStack()"
+                class="text-sm text-blue-600 hover:text-blue-800"
+              >
+                + Add Tech Stack
+              </button>
+            </div>
+            <div formArrayName="tech_stacks" class="mt-2 space-y-2">
+              <div *ngFor="let tech of techStacks.controls; let i = index" class="flex gap-2">
+                <input
+                  [formControlName]="i"
+                  class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter a technology"
+                >
+                <button
+                  type="button"
+                  (click)="removeTechStacks(i)"
+                  class="px-3 py-2 text-red-600 hover:text-red-800"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div>
+            <div class="flex justify-between items-center">
+              <label class="block text-sm font-medium text-gray-700">Skills</label>
+              <button
+                type="button"
+                (click)="addSkill()"
+                class="text-sm text-blue-600 hover:text-blue-800"
+              >
+                + Add Skill
+              </button>
+            </div>
+            <div formArrayName="skills" class="mt-2 space-y-2">
+              <div *ngFor="let skill of skills.controls; let i = index" class="flex gap-2">
+                <input
+                  [formControlName]="i"
+                  class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter a skill"
+                >
+                <button
+                  type="button"
+                  (click)="removeSkill(i)"
+                  class="px-3 py-2 text-red-600 hover:text-red-800"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <div class="border-t pt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Social Media</h3>
+            <div class="grid grid-cols-1 gap-4">
+              <div>
+                <label for="github" class="block text-sm font-medium text-gray-700">GitHub URL</label>
+                <input
+                  id="github"
+                  type="url"
+                  formControlName="github"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="https://github.com/yourusername"
+                >
+              </div>
+              <div>
+                <label for="linkedin" class="block text-sm font-medium text-gray-700">LinkedIn URL</label>
+                <input
+                  id="linkedin"
+                  type="url"
+                  formControlName="linkedin"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                >
+              </div>
+              <div>
+                <label for="twitter" class="block text-sm font-medium text-gray-700">Twitter URL</label>
+                <input
+                  id="twitter"
+                  type="url"
+                  formControlName="twitter"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="https://twitter.com/yourusername"
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects -->
+          <div class="border-t pt-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Projects</h3>
+              <button
+                type="button"
+                (click)="addProject()"
+                class="text-sm text-blue-600 hover:text-blue-800"
+              >
+                + Add Project
+              </button>
+            </div>
+
+            <div formArrayName="projects" class="space-y-4">
+              <div *ngFor="let project of projects.controls; let i = index"
+                   [formGroupName]="i"
+                   class="border border-gray-200 rounded-lg p-4">
+                <div class="flex justify-between items-start mb-3">
+                  <h4 class="font-medium text-gray-900">Project {{ i + 1 }}</h4>
+                  <button
+                    type="button"
+                    (click)="removeProject(i)"
+                    class="text-red-600 hover:text-red-800 text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                  <div>
+                    <label [for]="'projectName' + i" class="block text-sm font-medium text-gray-700">Project Name</label>
+                    <input
+                      [id]="'projectName' + i"
+                      type="text"
+                      formControlName="name"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    >
+                  </div>
+
+                  <div>
+                    <label [for]="'projectDescription' + i" class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea
+                      [id]="'projectDescription' + i"
+                      formControlName="description"
+                      rows="2"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label [for]="'projectLink' + i" class="block text-sm font-medium text-gray-700">Project Link</label>
+                    <input
+                      [id]="'projectLink' + i"
+                      type="url"
+                      formControlName="link"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="https://github.com/yourusername/project"
+                    >
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between items-center">
+                      <label class="block text-sm font-medium text-gray-700">Technologies Used</label>
+                      <button
+                        type="button"
+                        (click)="addProjectTechnology(i)"
+                        class="text-xs text-blue-600 hover:text-blue-800"
+                      >
+                        + Add Technology
+                      </button>
+                    </div>
+                    <div [formArrayName]="'technologies'" class="mt-2 space-y-2">
+                      <div *ngFor="let tech of getProjectTechnologies(i).controls; let j = index" class="flex gap-2">
+                        <input
+                          [formControlName]="j"
+                          class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="Technology name"
+                        >
+                        <button
+                          type="button"
+                          (click)="removeProjectTechnology(i, j)"
+                          class="px-3 py-2 text-red-600 hover:text-red-800 text-sm"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 pt-6 border-t">
+            <button
+              type="button"
+              (click)="cancel()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="profileForm.invalid || isLoading"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isLoading ? 'Updating...' : 'Update Profile' }}
+            </button>
+          </div>
+
+          <!-- Messages -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+
+          <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-md p-4">
+            <p class="text-green-700 text-sm">{{ successMessage }}</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

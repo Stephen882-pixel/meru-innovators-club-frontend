@@ -9,7 +9,7 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './register.html',
-  styleUrls: ['./register.scss'] 
+  styleUrls: ['./register.scss']
 })
 export class Register {
 
