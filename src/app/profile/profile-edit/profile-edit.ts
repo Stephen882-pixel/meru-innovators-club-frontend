@@ -58,17 +58,26 @@ export class ProfileEdit  implements OnInit{
     }
   }
 
-  get techStacks(){
+  get techStacks() {
     return this.profileForm.get('tech_stacks') as FormArray;
   }
 
-  get skills(){
+  get skills() {
     return this.profileForm.get('skills') as FormArray;
   }
 
-  get projects(){
+  get projects() {
     return this.profileForm.get('projects') as FormArray;
   }
+
+  getProjectTechnologies(projectIndex: number): FormArray {
+    return this.projects.at(projectIndex).get('technologies') as FormArray;
+  }
+
+  addTechStack() {
+    this.techStacks.push(this.fb.control(''));
+  }
+
 
 
 }
