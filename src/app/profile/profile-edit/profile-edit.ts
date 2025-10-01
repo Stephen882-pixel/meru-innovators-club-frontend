@@ -219,5 +219,14 @@ export class ProfileEdit  implements OnInit{
     this.router.navigate(['/profile']);
   }
 
-
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        this.router.navigate(['/login']);
+      }
+    });
+  }
 }
