@@ -100,6 +100,10 @@ export class ProfileEdit  implements OnInit{
     this.projects.push(projectGroup);
   }
 
+  removeProject(index:number){
+    this.projects.removeAt(index);
+  }
+
 
 
 }
