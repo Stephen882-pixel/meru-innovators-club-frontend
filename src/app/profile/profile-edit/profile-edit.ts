@@ -82,6 +82,10 @@ export class ProfileEdit  implements OnInit{
     this.techStacks.removeAt(index);
   }
 
+  addSkill(){
+    this.skills.push(this.fb.control(''));
+  }
+
 
 
 }
