@@ -69,5 +69,9 @@ export class ChangePassword {
     }
   }
 
+  cancel(){
+    this.router.navigate(['/profile']);
+  }
+
 
 }
