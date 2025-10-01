@@ -108,5 +108,9 @@ export class ProfileEdit  implements OnInit{
     this.getProjectTechnologies(projectIndex).push(this.fb.control(''));
   }
 
+  addProjectTechnology(projectIndex:number,techIndex:number){
+    this.getProjectTechnologies(projectIndex).removeAt(techIndex);
+  }
+
 
 }
