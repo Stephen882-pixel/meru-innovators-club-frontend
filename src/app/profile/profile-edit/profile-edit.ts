@@ -211,6 +211,10 @@ export class ProfileEdit  implements OnInit{
     this.router.navigate(['/profile']);
   }
 
+  navigateToDashboard(){
+    this.router.navigate(['/dashboard']);
+  }
+
 
 
 }
