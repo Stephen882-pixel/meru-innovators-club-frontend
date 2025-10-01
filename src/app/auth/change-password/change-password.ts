@@ -37,6 +37,37 @@ export class ChangePassword {
     old_password:['',Validators.required],
     new_password:['',Validators.required],
     confirm_password:['',Validators.required],
-  },{validators : passwordMatchValidator})
+  },{validators : passwordMatchValidator});
+
+  onSubmit(){
+    if(this.changePasswordForm.valid){
+      this.isLoading = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+      this.showEmailVerification = false;
+
+      const passwordData = {
+        old_password:this.changePasswordForm.value.old_password!,
+        new_password:this.changePasswordForm.value.new_password!,
+        confirm_password: this.changePasswordForm.value.confirm_password!
+      };
+      this.authService.changePassword(passwordData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.successMessage = response.message;
+          this.showEmailVerification = response.status === 'Pending';
+
+          if(response.status === 'Pending'){
+            this.changePasswordForm.reset();
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.message || 'Failed to change password. Please try again.';
+        }
+      });
+    }
+  }
+
 
 }
