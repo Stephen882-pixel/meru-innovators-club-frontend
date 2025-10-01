@@ -86,6 +86,10 @@ export class ProfileEdit  implements OnInit{
     this.skills.push(this.fb.control(''));
   }
 
+  removeSkill(index:number){
+    this.skills.removeAt(index);
+  }
+
 
 
 }
