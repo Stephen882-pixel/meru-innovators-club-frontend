@@ -20,7 +20,7 @@ export interface User {
         twitter:string
     };
     photo: string | null;
-    graduation_year:number;
+    graduation_year:string;
     projects:any[];
     skills:string[];
 }

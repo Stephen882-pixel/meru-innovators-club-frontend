@@ -31,8 +31,8 @@ export class ProfileEdit  implements OnInit{
     course:['',Validators.required],
     registration_no:[''],
     bio:[''],
-    year_of_study:[null],
-    graduation_year:[null],
+    //year_of_study:[null],
+    graduation_year:[''],
     tech_stacks:this.fb.array([]),
     skills:this.fb.array([]),
     github:[''],
@@ -108,9 +108,107 @@ export class ProfileEdit  implements OnInit{
     this.getProjectTechnologies(projectIndex).push(this.fb.control(''));
   }
 
-  addProjectTechnology(projectIndex:number,techIndex:number){
+  removeProjectTechnology(projectIndex: number, techIndex: number) {
     this.getProjectTechnologies(projectIndex).removeAt(techIndex);
   }
 
+  populateForm(user: User) {
+    this.profileForm.patchValue({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      username: user.username,
+      course: user.course,
+      registration_no: user.registration_no,
+      bio: user.bio,
+      //year_of_study: user.year_of_study,
+      graduation_year: user.graduation_year,
+      github: user.social_media?.github || '',
+      linkedIn: user.social_media?.linkedIn || '',
+      twitter: user.social_media?.twitter || ''
+    });
+
+    while(this.techStacks.length) this.techStacks.removeAt(0);
+    while (this.skills.length) this.skills.removeAt(0);
+    while (this.projects.length) this.projects.removeAt(0);
+
+
+    user.tech_stacks?.forEach(tech => {
+      this.techStacks.push(this.fb.control(tech));
+    });
+
+    user.skills?.forEach(skill => {
+      this.skills.push(this.fb.control(skill));
+    });
+
+    user.projects?.forEach(project => {
+      const projectGroup = this.fb.group({
+        name: [project.name, Validators.required],
+        description: [project.description],
+        link: [project.link],
+        technologies: this.fb.array([])
+      });
+
+      const technologiesArray = projectGroup.get('technologies') as FormArray;
+      project.technologies?.forEach((tech: any) => {
+        technologiesArray.push(this.fb.control(tech));
+      });
+
+      this.projects.push(projectGroup);
+    });
+  }
+
+  onSubmit(){
+    if(this.profileForm.valid){
+      this.isLoading = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      const formValue = this.profileForm.value;
+
+      const updateData = {
+        first_name: formValue.first_name,
+        last_name: formValue.last_name,
+        email : formValue.email,
+        username : formValue.username,
+        course : formValue.course,
+        registration_no: formValue.registration_no,
+        bio : formValue.bio,
+        graduation_year : formValue.graduation_year,
+        tech_stacks : formValue.tech_stacks?.filter(tech => tech.trim() !== ''),
+        skills : formValue.skills?.filter(skill => skill.trim() !== ''),
+        social_media : {
+          github:formValue.github,
+          linkedIn : formValue.linkedIn,
+          twitter : formValue.twitter
+        },
+        projects : formValue.projects?.map(project => ({
+          name:project.name,
+          description: project.description,
+          link:project.link,
+          technologies: project.technologies?.filter(tech => tech.trim() !== '')
+        })).filter(project => project.name.trim() !== '')
+      };
+
+      this.authService.updateUserProfile(updateData).subscribe({
+        next:(response) => {
+          this.isLoading = false;
+          this.successMessage = response.message;
+
+          setTimeout(() => {
+            this.router.navigate(['/profile']);
+          },2000)
+        },
+        error:(error) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.message || 'Failed to update profile. Please try again.';
+        }
+      });
+    }
+  }
+
+  cancel(){
+
+  }
 
 }
