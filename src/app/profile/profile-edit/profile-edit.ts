@@ -78,6 +78,10 @@ export class ProfileEdit  implements OnInit{
     this.techStacks.push(this.fb.control(''));
   }
 
+  removeTechStacks(index:number){
+    this.techStacks.removeAt(index);
+  }
+
 
 
 }
