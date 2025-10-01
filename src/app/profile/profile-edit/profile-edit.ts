@@ -62,5 +62,10 @@ export class ProfileEdit  implements OnInit{
     return this.profileForm.get('tech_stacks') as FormArray;
   }
 
+  get skills(){
+    return this.profileForm.get('skills') as FormArray;
+  }
+
+
 
 }
