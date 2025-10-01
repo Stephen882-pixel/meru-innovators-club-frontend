@@ -9,6 +9,7 @@ import {ResetPasswordOtp} from './auth/reset-password-otp/reset-password-otp';
 import {ResetPassword} from './auth/reset-password/reset-password';
 import {ProfileView} from './profile/profile-view/profile-view';
 import {ProfileEdit} from './profile/profile-edit/profile-edit';
+import {ChangePassword} from './auth/change-password/change-password';
 
 export const routes: Routes = [
     {
@@ -44,7 +45,11 @@ export const routes: Routes = [
         component:ProfileView
     },
     {
-      path:'profile-edit',
-      component:ProfileEdit
+        path:'profile-edit',
+        component:ProfileEdit
+    },
+    {
+        path:'change-password',
+        component:ChangePassword
     }
 ];
