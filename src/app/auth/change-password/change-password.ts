@@ -77,4 +77,8 @@ export class ChangePassword {
     this.router.navigate(['/dashboard']);
   }
 
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
+  }
+
 }
