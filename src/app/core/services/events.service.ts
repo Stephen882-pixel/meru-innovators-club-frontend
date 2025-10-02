@@ -70,6 +70,9 @@ export class EventService {
     return this.http.post<EventResponse>(`${this.apiUrl}/events/add/`, eventData);
   }
 
+  updateEvent(eventId:number,eventData:FormData):Observable<EventResponse>{
+    return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update`,eventData);
+  }
 
 }
 
