@@ -57,6 +57,17 @@ export class EventsList implements  OnInit{
     })
   }
 
+  searchEvents() {
+    if (!this.searchTerm.trim()) {
+      this.filteredEvents = this.events;
+    } else {
+      this.filteredEvents = this.events.filter(event =>
+        event.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        event.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        event.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
 
 
 }
