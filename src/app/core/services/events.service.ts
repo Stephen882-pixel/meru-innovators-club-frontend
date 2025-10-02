@@ -92,6 +92,10 @@ export class EventService {
     return this.http.get<EventResponse>(`${this.apiUrl}/events/by-name/`,{params});
   }
 
+  registerForEvent(eventId:number,registrationData: any): Observable<RegistrationResponse>{
+    return this.http.post<RegistrationResponse>(`${this.apiUrl}/events/${eventId}/registrations/`,registrationData);
+  }
+
 }
 
 
