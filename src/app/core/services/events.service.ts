@@ -13,4 +13,16 @@ export interface Event {
   is_virtual:boolean;
 }
 
+export interface EventRegistration {
+  uid:string;
+  event:number;
+  full_name:string;
+  email:string;
+  course:string;
+  education_level:string;
+  phone_number:string;
+  expectations:string;
+  registration_timestamp:string;
+  ticket_number:string;
+}
 
