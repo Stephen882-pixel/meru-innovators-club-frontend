@@ -83,6 +83,10 @@ export class EventService {
     return this.http.get<EventResponse>(`${this.apiUrl}/events/list/`,{params});
   }
 
+  getEventById(eventId:number):Observable<EventResponse> {
+    return this.http.get<EventResponse>(`${this.apiUrl}/events/${eventId}/view/`);
+  }
+
 
 }
 
