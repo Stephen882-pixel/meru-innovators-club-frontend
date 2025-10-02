@@ -74,6 +74,10 @@ export class EventService {
     return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update`,eventData);
   }
 
+  deleteEvent(eventId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/events/${eventId}/delete`);
+  }
+
 
 }
 
