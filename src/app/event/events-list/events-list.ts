@@ -9,7 +9,7 @@ import {AuthService} from '../../core/services/auth.service';
   standalone:true,
   imports: [CommonModule,RouterLink],
   templateUrl: './events-list.html',
-  styleUrl: './events-list.scss'
+  styleUrls: ['./events-list.scss']
 })
 export class EventsList implements  OnInit{
 
@@ -32,10 +32,31 @@ export class EventsList implements  OnInit{
     this.checkAdminStatus();
   }
 
+  loadEvents(page:number = 1){
+    this.isAdmin = true;
+    this.eventService.getEvents(page).subscribe({
+      next : (response) => {
+        this.events = response.data.results;
+        this.filteredEvents = this.events;
+        this.hasNextPage = !!response.data.next;
+        this.hasPreviousPage = !!response.data.previous;
+        this.currentPage = page;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading events:',error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+
   checkAdminStatus(){
     this.authService.currentUser$.subscribe(user => {
       this.isAdmin = true;
     })
   }
+
+
 
 }
