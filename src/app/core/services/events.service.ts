@@ -37,4 +37,10 @@ export interface EventsResponse {
   };
 }
 
+export interface EventResponse {
+  message:string;
+  status:string;
+  data:Event;
+}
+
 
