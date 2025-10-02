@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../../environments/environments';
 import {Observable} from 'rxjs';
 
@@ -76,6 +76,11 @@ export class EventService {
 
   deleteEvent(eventId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/events/${eventId}/delete`);
+  }
+
+  getEvents(page:number = 1):Observable<EventResponse> {
+    let params = new HttpParams().set('page',page.toString());
+    return this.http.get<EventResponse>(`${this.apiUrl}/events/list/`,{params});
   }
 
 
