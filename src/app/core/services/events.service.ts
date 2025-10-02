@@ -26,3 +26,15 @@ export interface EventRegistration {
   ticket_number:string;
 }
 
+export interface EventsResponse {
+  message:string;
+  status:string;
+  data:{
+    count:number;
+    next:string | null;
+    previous:string | null;
+    result:Event[];
+  };
+}
+
+
