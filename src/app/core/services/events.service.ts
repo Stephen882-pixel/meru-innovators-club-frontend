@@ -53,7 +53,7 @@ export interface RegistrationResponse {
   data:EventRegistration;
 }
 
-export interface UserRegistrationResponse {
+export interface UserRegistrationsResponse {
   message:string;
   status:string;
   data:EventRegistration[];
