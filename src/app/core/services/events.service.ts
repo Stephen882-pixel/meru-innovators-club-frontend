@@ -49,4 +49,10 @@ export interface RegistrationResponse {
   data:EventRegistration;
 }
 
+export interface UserRegistrationResponse {
+  message:string;
+  status:string;
+  data:EventRegistration[];
+}
+
 
