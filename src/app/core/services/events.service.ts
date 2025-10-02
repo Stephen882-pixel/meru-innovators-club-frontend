@@ -1,3 +1,7 @@
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environments';
+import {Observable} from 'rxjs';
 
 
 export interface Event {
@@ -53,6 +57,20 @@ export interface UserRegistrationResponse {
   message:string;
   status:string;
   data:EventRegistration[];
+}
+
+@Injectable({
+  providedIn:'root'
+})
+export class EventService {
+  private http = inject(HttpClient);
+  private apiUrl = environment.apiUrl;
+
+  addEvent(eventData: FormData): Observable<EventResponse> {
+    return this.http.post<EventResponse>(`${this.apiUrl}/events/add/`, eventData);
+  }
+
+
 }
 
 
