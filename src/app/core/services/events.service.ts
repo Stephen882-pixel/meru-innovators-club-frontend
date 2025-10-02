@@ -74,6 +74,7 @@ export class EventService {
     return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update`,eventData);
   }
 
+
 }
 
 
