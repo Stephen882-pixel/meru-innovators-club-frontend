@@ -43,4 +43,10 @@ export interface EventResponse {
   data:Event;
 }
 
+export interface RegistrationResponse {
+  message:string;
+  status:string;
+  data:EventRegistration;
+}
+
 
