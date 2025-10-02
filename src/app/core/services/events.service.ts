@@ -96,6 +96,10 @@ export class EventService {
     return this.http.post<RegistrationResponse>(`${this.apiUrl}/events/${eventId}/registrations/`,registrationData);
   }
 
+  getUserRegistrations(email: string): Observable<UserRegistrationsResponse> {
+    let params = new HttpParams().set('email', email);
+    return this.http.get<UserRegistrationsResponse>(`${this.apiUrl}/registrations/user-registrations/`, { params });
+  }
 }
 
 
