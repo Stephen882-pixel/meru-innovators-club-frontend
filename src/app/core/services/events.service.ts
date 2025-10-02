@@ -87,6 +87,10 @@ export class EventService {
     return this.http.get<EventResponse>(`${this.apiUrl}/events/${eventId}/view/`);
   }
 
+  getEventByName(name:string) : Observable<EventResponse> {
+    let params= new HttpParams().set('name',name);
+    return this.http.get<EventResponse>(`${this.apiUrl}/events/by-name/`,{params});
+  }
 
 }
 
