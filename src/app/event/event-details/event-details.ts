@@ -30,6 +30,19 @@ export class EventDetails implements  OnInit{
     this.checkAdminStatus();
   }
 
+  loadEventDetails(eventId:number){
+    this.isLoading = true;
+    this.eventService.getEventById(eventId).subscribe({
+      next: (response) => {
+        this.event = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading event details:',error);
+      }
+    });
+  }
+
 
 
 }
