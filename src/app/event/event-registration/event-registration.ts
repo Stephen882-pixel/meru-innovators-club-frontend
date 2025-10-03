@@ -8,7 +8,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-event-registration',
   standalone:true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './event-registration.html',
   styleUrl: './event-registration.scss'
 })
