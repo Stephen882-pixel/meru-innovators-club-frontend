@@ -118,6 +118,9 @@ export class EventsList implements  OnInit{
     this.router.navigate(['/profile']);
   }
 
+  navigateToAddEvent(){
+    this.router.navigate(['/events','add']);
+  }
 
 
 }
