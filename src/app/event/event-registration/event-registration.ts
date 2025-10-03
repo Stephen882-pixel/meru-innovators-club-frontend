@@ -68,6 +68,24 @@ export class EventRegistration implements OnInit{
     });
   }
 
+  onSubmit(){
+    if(this.registrationForm.valid && this.event){
+      this.isSubmitting = true;
+      this.errorMessage = '';
+
+      this.eventService.registerForEvent(this.event.id, this.registrationForm.value).subscribe({
+        next: (respose) => {
+          this.isSubmitting = false;
+          this.registrationSuccess = true;
+          this.registrationData = respose.data;
+        },
+        error: (error) => {
+          this.isSubmitting = false;
+          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+        }
+      });
+    }
+  }
 
 
 }
