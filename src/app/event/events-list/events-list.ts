@@ -129,6 +129,10 @@ export class EventsList implements  OnInit {
     this.router.navigate(['/events', 'my-registrations']);
   }
 
+  navigateToEventDetails(){
+    this.router.navigate(['event-details']);
+  }
+
   logout() {
     this.authService.logout().subscribe({
       next: () => {

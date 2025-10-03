@@ -33,8 +33,10 @@ export class Dashboard implements OnInit {
   }
 
   navigateToEvents(){
-    this.router.navigate(['/events-list'])
+    this.router.navigate(['/events-list']);
   }
+
+
 
   logout(){
     this.authService.logout().subscribe({

@@ -12,6 +12,7 @@ import {ProfileEdit} from './profile/profile-edit/profile-edit';
 import {ChangePassword} from './auth/change-password/change-password';
 import {authGuard} from './core/guards/auth.guard';
 import {EventsList} from './event/events-list/events-list';
+import {EventDetails} from './event/event-details/event-details';
 
 export const routes: Routes = [
     {
@@ -57,6 +58,10 @@ export const routes: Routes = [
     {
         path:'events-list',
         component:EventsList
+    },
+    {
+        path:'event-details',
+        component:EventDetails
     }
     // {
     //   path: 'events',
