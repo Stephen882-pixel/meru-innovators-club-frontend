@@ -20,7 +20,7 @@ export class EventRegistration implements OnInit{
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  event: Event | null = null;
+  event: MusicEvent | null = null;
   registrationData: any = null;
   isLoading = true;
   isSubmitting = false;
@@ -50,6 +50,20 @@ export class EventRegistration implements OnInit{
           email: user.email,
           course:user.course
         });
+      }
+    });
+  }
+
+  loadEventDetails(eventId:number){
+    this.isLoading = true;
+    this.eventService.getEventById(eventId).subscribe({
+      next: (response) => {
+        this.event = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading event details:',error);
+        this.isLoading = false;
       }
     });
   }
