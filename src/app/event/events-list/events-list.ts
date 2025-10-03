@@ -69,5 +69,16 @@ export class EventsList implements  OnInit{
     }
   }
 
+  filterEvents(){
+    if(!this.selectedCategory){
+      this.filteredEvents = this.events;
+    } else {
+      this.filteredEvents = this.events.filter(event =>
+        event.category === this.selectedCategory
+      );
+    }
+  }
+
+
 
 }
