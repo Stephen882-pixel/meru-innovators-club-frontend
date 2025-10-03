@@ -74,31 +74,20 @@ export class EventForm  implements  OnInit{
       this.errorMessage = '';
       this.successMessage = '';
 
-
-      const formData = new FormData();
-      const formValue = this.eventForm.value;
-
-
-      // Object.keys(formValue).forEach(key => {
-      //   if (formValue[key] !== null && formValue[key] !== undefined) {
-      //     formData.append(key, formValue[key]!.toString());
-      //   }
-      // });
-      Object.keys(formValue).forEach(key => {
-        const value = (formValue as Record<string, unknown>)[key];
-        if (value !== null && value !== undefined) {
-          formData.append(key, value.toString());
-        }
-      });
+      // Send as JSON object instead of FormData
+      const eventData = {
+        ...this.eventForm.value,
+        is_virtual: this.eventForm.value.is_virtual === true // Ensure it's a boolean
+      };
 
       if(this.isEditMode && this.eventId){
-        this.eventService.updateEvent(this.eventId,formData).subscribe({
+        this.eventService.updateEvent(this.eventId, eventData).subscribe({
           next: (response) => {
             this.isSubmitting = false;
             this.successMessage = response.message;
             setTimeout(() => {
-              this.router.navigate(['/events',this.eventId]);
-            },2000)
+              this.router.navigate(['/events', this.eventId]);
+            }, 2000)
           },
           error: (error) => {
             this.isSubmitting = false;
@@ -106,13 +95,13 @@ export class EventForm  implements  OnInit{
           }
         });
       } else {
-        this.eventService.addEvent(formData).subscribe({
+        this.eventService.addEvent(eventData).subscribe({
           next: (response) => {
             this.isSubmitting = false;
             this.successMessage = response.message;
             setTimeout(() => {
-             this.router.navigate(['/events',response.data.id]);
-            },2000)
+              this.router.navigate(['/events', response.data.id]);
+            }, 2000)
           },
           error: (error) => {
             this.isSubmitting = false;
