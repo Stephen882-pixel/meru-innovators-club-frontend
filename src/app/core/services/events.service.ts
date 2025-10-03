@@ -66,12 +66,12 @@ export class EventsService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  addEvent(eventData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/add/`, eventData);
+  addEvent(eventData: FormData): Observable<EventResponse> {
+    return this.http.post<EventResponse>(`${this.apiUrl}/events/add/`, eventData);
   }
 
-  updateEvent(eventId: number, eventData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${eventId}/update/`, eventData);
+  updateEvent(eventId: number, eventData: FormData): Observable<EventResponse> {
+    return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update/`, eventData);
   }
 
   deleteEvent(eventId: number): Observable<any> {
