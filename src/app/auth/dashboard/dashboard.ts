@@ -32,6 +32,10 @@ export class Dashboard implements OnInit {
     this.router.navigate(['/profile']);
   }
 
+  navigateToEvents(){
+    this.router.navigate(['/events-list'])
+  }
+
   logout(){
     this.authService.logout().subscribe({
       next: () => {
