@@ -43,6 +43,11 @@ export class EventDetails implements  OnInit{
     });
   }
 
+  checkAdminStatus(){
+    this.authService.currentUser$.subscribe(user => {
+      this.isAdmin = true; // Implement proper admin check
+    });
+  }
 
 
 }
