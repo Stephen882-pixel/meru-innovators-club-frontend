@@ -8,7 +8,7 @@ import {routes} from '../../app.routes';
 @Component({
   selector: 'app-event-details',
   standalone:true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './event-details.html',
   styleUrls: ['./event-details.scss']
 })
