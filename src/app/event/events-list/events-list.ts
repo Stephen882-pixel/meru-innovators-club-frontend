@@ -93,5 +93,12 @@ export class EventsList implements  OnInit{
     }
   }
 
+  previousPage(){
+    if(this.hasPreviousPage){
+      this.loadEvents(this.currentPage - 1);
+    }
+  }
+
+
 
 }
