@@ -106,4 +106,16 @@ export class EventRegistration implements OnInit{
     }
   }
 
+  navigateToEvents() {
+    this.router.navigate(['/events-list']);
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  navigateToMyRegistrations() {
+    this.router.navigate(['/events', 'my-registrations']);
+  }
+
 }
