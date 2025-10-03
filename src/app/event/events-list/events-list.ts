@@ -114,6 +114,10 @@ export class EventsList implements  OnInit{
     this.router.navigate(['/dashboard']);
   }
 
+  navigateToProfile(){
+    this.router.navigate(['/profile']);
+  }
+
 
 
 }
