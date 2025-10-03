@@ -98,6 +98,12 @@ export class EventRegistration implements OnInit{
     });
   }
 
-
+  cancel(){
+    if(this.event){
+      this.router.navigate(['/events',this.event.id]);
+    } else {
+      this.router.navigate(['/events']);
+    }
+  }
 
 }
