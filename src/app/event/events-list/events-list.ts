@@ -87,6 +87,11 @@ export class EventsList implements  OnInit{
     this.router.navigate(['/events',eventId,'register']);
   }
 
+  nextPage(){
+    if(this.hasNextPage){
+      this.loadEvents(this.currentPage + 1);
+    }
+  }
 
 
 }
