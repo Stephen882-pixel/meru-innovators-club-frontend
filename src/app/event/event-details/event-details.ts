@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {EventsService, MusicEvent} from '../../core/services/events.service';
 import {AuthService} from '../../core/services/auth.service';
+import {routes} from '../../app.routes';
 
 @Component({
   selector: 'app-event-details',
@@ -64,6 +65,12 @@ export class EventDetails implements  OnInit{
   registerForEvent(){
     if(this.event){
       this.router.navigate(['/events',this.event.id,'register']);
+    }
+  }
+
+  editEvent(){
+    if(this.event){
+      this.router.navigate(['/events',this.event.id,'edit']);
     }
   }
 
