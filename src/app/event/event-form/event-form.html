@@ -1,1 +1,220 @@
-<p>event-form works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - {{ isEditMode ? 'Edit Event' : 'Add New Event' }}
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToEvents()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            All Events
+          </button>
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">{{ isEditMode ? 'Edit Event' : 'Create New Event' }}</h2>
+          <p class="text-gray-600 text-sm mt-1">
+            {{ isEditMode ? 'Update the event details below' : 'Fill in the details to create a new event' }}
+          </p>
+        </div>
+
+        <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <!-- Basic Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700">Event Name *</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., Cyberquest 2025"
+              >
+              <div *ngIf="eventForm.get('name')?.invalid && eventForm.get('name')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Event name is required
+              </div>
+            </div>
+
+            <div>
+              <label for="category" class="block text-sm font-medium text-gray-700">Category *</label>
+              <select
+                id="category"
+                formControlName="category"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Select Category</option>
+                <option value="WEB">Web Development</option>
+                <option value="CYBERSECURITY">Cybersecurity</option>
+                <option value="AI">Artificial Intelligence</option>
+                <option value="DATA_SCIENCE">Data Science</option>
+                <option value="MOBILE">Mobile Development</option>
+                <option value="NETWORKING">Networking</option>
+                <option value="IOT">Internet of Things</option>
+                <option value="CLOUD">Cloud Computing</option>
+              </select>
+              <div *ngIf="eventForm.get('category')?.invalid && eventForm.get('category')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Category is required
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label for="title" class="block text-sm font-medium text-gray-700">Event Title *</label>
+            <input
+              id="title"
+              type="text"
+              formControlName="title"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="e.g., Annual Cybersecurity Competition"
+            >
+            <div *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Event title is required
+            </div>
+          </div>
+
+          <div>
+            <label for="description" class="block text-sm font-medium text-gray-700">Description *</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              rows="6"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Provide a detailed description of the event..."
+            ></textarea>
+            <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Description is required
+            </div>
+          </div>
+
+          <!-- Date and Location -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="date" class="block text-sm font-medium text-gray-700">Date and Time *</label>
+              <input
+                id="date"
+                type="datetime-local"
+                formControlName="date"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="eventForm.get('date')?.invalid && eventForm.get('date')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Date and time are required
+              </div>
+            </div>
+
+            <div>
+              <label for="location" class="block text-sm font-medium text-gray-700">Location *</label>
+              <input
+                id="location"
+                type="text"
+                formControlName="location"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., KCA University, Main Campus"
+              >
+              <div *ngIf="eventForm.get('location')?.invalid && eventForm.get('location')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Location is required
+              </div>
+            </div>
+          </div>
+
+          <!-- Organizer and Contact -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="organizer" class="block text-sm font-medium text-gray-700">Organizer *</label>
+              <input
+                id="organizer"
+                type="text"
+                formControlName="organizer"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., Tech Sisters Kenya"
+              >
+              <div *ngIf="eventForm.get('organizer')?.invalid && eventForm.get('organizer')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Organizer is required
+              </div>
+            </div>
+
+            <div>
+              <label for="contact_email" class="block text-sm font-medium text-gray-700">Contact Email *</label>
+              <input
+                id="contact_email"
+                type="email"
+                formControlName="contact_email"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., contact@example.com"
+              >
+              <div *ngIf="eventForm.get('contact_email')?.invalid && eventForm.get('contact_email')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Valid contact email is required
+              </div>
+            </div>
+          </div>
+
+          <!-- Virtual Event Toggle -->
+          <div class="flex items-center">
+            <input
+              id="is_virtual"
+              type="checkbox"
+              formControlName="is_virtual"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            >
+            <label for="is_virtual" class="ml-2 block text-sm text-gray-900">
+              This is a virtual event
+            </label>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 pt-6">
+            <button
+              type="button"
+              (click)="cancel()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="eventForm.invalid || isSubmitting"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Event' : 'Create Event') }}
+            </button>
+          </div>
+
+          <!-- Messages -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+
+          <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-md p-4">
+            <p class="text-green-700 text-sm">{{ successMessage }}</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
