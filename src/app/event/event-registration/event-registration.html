@@ -1,1 +1,276 @@
-<p>event-registration works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - Event Registration
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToEvents()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            All Events
+          </button>
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+
+      <!-- Event Info -->
+      <div *ngIf="!isLoading && event" class="bg-white shadow rounded-lg mb-8">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Register for: {{ event.name }}</h2>
+          <p class="text-gray-600 mt-1">{{ event.title }}</p>
+        </div>
+        <div class="px-6 py-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <span class="font-medium text-gray-900">Date:</span>
+              <span class="ml-2 text-gray-600">{{ formatDate(event.date) }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Location:</span>
+              <span class="ml-2 text-gray-600">{{ event.location }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Organizer:</span>
+              <span class="ml-2 text-gray-600">{{ event.organizer }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Category:</span>
+              <span class="ml-2 text-gray-600">{{ event.category }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registration Form -->
+      <div *ngIf="!isLoading && event && !registrationSuccess" class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Registration Form</h3>
+          <p class="text-gray-600 text-sm mt-1">Please fill in your details to register for this event</p>
+        </div>
+
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>
+              <input
+                id="full_name"
+                type="text"
+                formControlName="full_name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="registrationForm.get('full_name')?.invalid && registrationForm.get('full_name')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Full name is required
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Valid email is required
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="course" class="block text-sm font-medium text-gray-700">Course</label>
+              <input
+                id="course"
+                type="text"
+                formControlName="course"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="registrationForm.get('course')?.invalid && registrationForm.get('course')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Course is required
+              </div>
+            </div>
+
+            <div>
+              <label for="educational_level" class="block text-sm font-medium text-gray-700">Educational Level</label>
+              <select
+                id="educational_level"
+                formControlName="educational_level"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Select Level</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+                <option value="5">5th Year</option>
+              </select>
+              <div *ngIf="registrationForm.get('educational_level')?.invalid && registrationForm.get('educational_level')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Educational level is required
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+              <input
+                id="phone_number"
+                type="tel"
+                formControlName="phone_number"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="+254..."
+              >
+              <div *ngIf="registrationForm.get('phone_number')?.invalid && registrationForm.get('phone_number')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Phone number is required
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label for="expectations" class="block text-sm font-medium text-gray-700">What are your expectations for this event?</label>
+            <textarea
+              id="expectations"
+              formControlName="expectations"
+              rows="4"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Tell us what you hope to learn or achieve from this event..."
+            ></textarea>
+            <div *ngIf="registrationForm.get('expectations')?.invalid && registrationForm.get('expectations')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Expectations are required
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 pt-6">
+            <button
+              type="button"
+              (click)="cancel()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="registrationForm.invalid || isSubmitting"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isSubmitting ? 'Registering...' : 'Register for Event' }}
+            </button>
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success State -->
+      <div *ngIf="registrationSuccess && registrationData" class="bg-white shadow rounded-lg">
+        <div class="px-6 py-8 text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-lg font-medium text-gray-900">Registration Successful!</h3>
+          <p class="mt-2 text-sm text-gray-600">
+            You have successfully registered for <strong>{{ event?.name }}</strong>
+          </p>
+
+          <!-- Registration Details -->
+          <div class="mt-6 bg-gray-50 rounded-lg p-6 text-left">
+            <h4 class="text-sm font-medium text-gray-900 mb-4">Registration Details</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <span class="font-medium text-gray-700">Ticket Number:</span>
+                <p class="text-gray-900 font-mono">{{ registrationData.ticket_number }}</p>
+              </div>
+              <div>
+                <span class="font-medium text-gray-700">Event:</span>
+                <p class="text-gray-900">{{ registrationData.eventName }}</p>
+              </div>
+              <div>
+                <span class="font-medium text-gray-700">Date:</span>
+                <p class="text-gray-900">{{ formatDate(registrationData.eventDate) }}</p>
+              </div>
+              <div>
+                <span class="font-medium text-gray-700">Location:</span>
+                <p class="text-gray-900">{{ registrationData.eventLocation }}</p>
+              </div>
+              <div class="md:col-span-2">
+                <span class="font-medium text-gray-700">Registered Name:</span>
+                <p class="text-gray-900">{{ registrationData.full_name }}</p>
+              </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+              <p class="text-sm text-yellow-800">
+                <strong>Important:</strong> Please save your ticket number for reference.
+                You'll receive a confirmation email shortly.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-center space-x-3">
+            <button
+              (click)="navigateToEvents()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Browse More Events
+            </button>
+            <button
+              (click)="navigateToMyRegistrations()"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              View My Registrations
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="!isLoading && !event" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">Event not found</h3>
+        <p class="mt-1 text-sm text-gray-500">The event you're trying to register for doesn't exist.</p>
+        <button
+          (click)="navigateToEvents()"
+          class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Back to Events
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
