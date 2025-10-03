@@ -70,7 +70,7 @@ export const routes: Routes = [
         component:EventRegistration
     },
     {
-        path:'event/add',
+        path:'events/add',
         component:EventForm
     }
 ];
