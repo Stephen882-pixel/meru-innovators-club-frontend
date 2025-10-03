@@ -122,7 +122,7 @@ export class EventsList implements  OnInit {
   }
 
   navigateToAddEvent() {
-    this.router.navigate(['/events/add',]);
+    this.router.navigate(['/events',]);
   }
 
   navigateToMyRegistrations() {
