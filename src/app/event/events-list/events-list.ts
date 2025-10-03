@@ -83,5 +83,10 @@ export class EventsList implements  OnInit{
     this.router.navigate(['/events',eventId]);
   }
 
+  registerForEvent(eventId:number){
+    this.router.navigate(['/events',eventId,'register']);
+  }
+
+
 
 }
