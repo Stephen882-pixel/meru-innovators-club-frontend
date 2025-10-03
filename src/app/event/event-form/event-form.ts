@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -12,7 +12,7 @@ import {AuthService} from '../../core/services/auth.service';
   templateUrl: './event-form.html',
   styleUrls: ['./event-form.scss']
 })
-export class EventForm {
+export class EventForm  implements  OnInit{
 
   private fb = inject(FormBuilder);
   private eventService = inject(EventsService);
@@ -37,6 +37,17 @@ export class EventForm {
     contact_email: ['', [Validators.required, Validators.email]],
     is_virtual:[false]
   });
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if(params['id']){
+        this.isEditMode = true;
+        this.eventId = +params['id'];
+        this.loadEventForEdit(this.eventId);
+      }
+    });
+  }
+
 
 
 }
