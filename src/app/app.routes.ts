@@ -58,6 +58,10 @@ export const routes: Routes = [
         component:ChangePassword
     },
     {
+      path:'events/add',
+      component:EventForm
+    },
+    {
         path:'events-list',
         component:EventsList
     },
@@ -68,9 +72,5 @@ export const routes: Routes = [
     {
         path:'event-registration/:id',
         component:EventRegistration
-    },
-    {
-        path:'events/add',
-        component:EventForm
     }
 ];
