@@ -61,5 +61,11 @@ export class EventDetails implements  OnInit{
     });
   }
 
+  registerForEvent(){
+    if(this.event){
+      this.router.navigate(['/events',this.event.id,'register']);
+    }
+  }
+
 
 }
