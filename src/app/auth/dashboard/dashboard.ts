@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService, User } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone:true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
