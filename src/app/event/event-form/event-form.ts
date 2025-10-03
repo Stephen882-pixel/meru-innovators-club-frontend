@@ -48,6 +48,26 @@ export class EventForm  implements  OnInit{
     });
   }
 
+  loadEventForEdit(eventId:number){
+    this.eventService.getEventById(eventId).subscribe({
+      next: (response) => {
+        const event = response.data;
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toISOString().slice(0,16);
+
+        this.eventForm.patchValue({
+          ...event,
+          date: formattedDate,
+          is_virtual: event.is_virtual
+        });
+      },
+      error: (error) => {
+        console.error('Error loading event for edit:',error);
+        this.errorMessage = 'Failed to load event details.';
+      }
+    });
+  }
+
 
 
 }
