@@ -110,6 +110,10 @@ export class EventsList implements  OnInit{
     });
   }
 
+  navigateToDashboard(){
+    this.router.navigate(['/dashboard']);
+  }
+
 
 
 }
