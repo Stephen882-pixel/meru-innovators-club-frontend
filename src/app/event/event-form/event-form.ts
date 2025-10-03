@@ -123,6 +123,22 @@ export class EventForm  implements  OnInit{
     }
   }
 
+  cancel() {
+    if (this.isEditMode && this.eventId) {
+      this.router.navigate(['/events', this.eventId]);
+    } else {
+      this.router.navigate(['/events']);
+    }
+  }
+
+  navigateToEvents() {
+    this.router.navigate(['/events']);
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
 
 
 }
