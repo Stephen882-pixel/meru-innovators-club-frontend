@@ -74,10 +74,10 @@ export class EventRegistration implements OnInit{
       this.errorMessage = '';
 
       this.eventService.registerForEvent(this.event.id, this.registrationForm.value).subscribe({
-        next: (respose) => {
+        next: (response) => {
           this.isSubmitting = false;
           this.registrationSuccess = true;
-          this.registrationData = respose.data;
+          this.registrationData = response.data;
         },
         error: (error) => {
           this.isSubmitting = false;
