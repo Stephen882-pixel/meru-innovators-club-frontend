@@ -79,6 +79,9 @@ export class EventsList implements  OnInit{
     }
   }
 
+  viewEventDetails(eventId:number){
+    this.router.navigate(['/events',eventId]);
+  }
 
 
 }
