@@ -68,6 +68,61 @@ export class EventForm  implements  OnInit{
     });
   }
 
+  onSubmit(){
+    if(this.eventForm.valid){
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+
+      const formData = new FormData();
+      const formValue = this.eventForm.value;
+
+
+      // Object.keys(formValue).forEach(key => {
+      //   if (formValue[key] !== null && formValue[key] !== undefined) {
+      //     formData.append(key, formValue[key]!.toString());
+      //   }
+      // });
+      Object.keys(formValue).forEach(key => {
+        const value = (formValue as Record<string, unknown>)[key];
+        if (value !== null && value !== undefined) {
+          formData.append(key, value.toString());
+        }
+      });
+
+      if(this.isEditMode && this.eventId){
+        this.eventService.updateEvent(this.eventId,formData).subscribe({
+          next: (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+              this.router.navigate(['/events',this.eventId]);
+            },2000)
+          },
+          error: (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to update event. Please try again.';
+          }
+        });
+      } else {
+        this.eventService.addEvent(formData).subscribe({
+          next: (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+             this.router.navigate(['/events',response.data.id]);
+            },2000)
+          },
+          error: (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to create event. Please try again.';
+          }
+        });
+      }
+    }
+  }
+
 
 
 }
