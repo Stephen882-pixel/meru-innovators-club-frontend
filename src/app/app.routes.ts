@@ -10,6 +10,7 @@ import {ResetPassword} from './auth/reset-password/reset-password';
 import {ProfileView} from './profile/profile-view/profile-view';
 import {ProfileEdit} from './profile/profile-edit/profile-edit';
 import {ChangePassword} from './auth/change-password/change-password';
+import {EventsList} from './event/events-list/events-list';
 
 export const routes: Routes = [
     {
@@ -51,5 +52,9 @@ export const routes: Routes = [
     {
         path:'change-password',
         component:ChangePassword
+    },
+    {
+        path:'events-list',
+        component:EventsList
     }
 ];
