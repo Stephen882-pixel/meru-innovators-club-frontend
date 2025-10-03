@@ -13,6 +13,7 @@ import {ChangePassword} from './auth/change-password/change-password';
 import {authGuard} from './core/guards/auth.guard';
 import {EventsList} from './event/events-list/events-list';
 import {EventDetails} from './event/event-details/event-details';
+import {EventRegistration} from './event/event-registration/event-registration';
 
 export const routes: Routes = [
     {
@@ -62,5 +63,9 @@ export const routes: Routes = [
     {
         path:'event-details/:id',
         component:EventDetails
+    },
+    {
+        path:'event-registration/:id',
+        component:EventRegistration
     }
 ];
