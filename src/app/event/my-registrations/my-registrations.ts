@@ -118,5 +118,12 @@ export class MyRegistrations implements OnInit{
     });
   }
 
+  navigateToEvents() {
+    this.router.navigate(['/events']);
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 
 }
