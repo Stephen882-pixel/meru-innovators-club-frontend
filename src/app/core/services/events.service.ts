@@ -108,6 +108,12 @@ export class EventsService {
   }
 
 
+  formatDateForBackend(date:string):string{
+    if(!date) return '';
+    return date.replace('T','');
+  }
+
+
 
   deleteEvent(eventId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/events/${eventId}/delete/`);
