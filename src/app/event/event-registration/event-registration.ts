@@ -115,7 +115,7 @@ export class EventRegistration implements OnInit{
   }
 
   navigateToMyRegistrations() {
-    this.router.navigate(['/events', 'my-registrations']);
+    this.router.navigate(['/my-registrations']);
   }
 
 }
