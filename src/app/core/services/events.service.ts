@@ -47,6 +47,13 @@ export interface EventResponse {
   data: MusicEvent;
 }
 
+export interface CategoryChoice {
+  value:string;
+  label:string;
+}
+
+
+
 export interface RegistrationResponse {
   message: string;
   status: string;
@@ -66,21 +73,18 @@ export class EventsService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  // addEvent(eventData: FormData): Observable<EventResponse> {
-  //   return this.http.post<EventResponse>(`${this.apiUrl}/events/add/`, eventData);
-  // }
-  //
-  // updateEvent(eventId: number, eventData: FormData): Observable<EventResponse> {
-  //   return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update/`, eventData);
-  // }
-
-  addEvent(eventData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/events/add/`, eventData);
+  addEvent(eventData:any):Observable<EventResponse>{
+    const formData = this.convertToFormData(eventData);
+    return this.http.post<EventResponse>(`${this.apiUrl}/events/add`,formData)
   }
 
-  updateEvent(eventId: number, eventData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${eventId}/update/`, eventData);
+  private convertToFormData(eventData: any):FormData{
+    const formData = new FormData();
+
+
   }
+
+
 
   deleteEvent(eventId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/events/${eventId}/delete/`);

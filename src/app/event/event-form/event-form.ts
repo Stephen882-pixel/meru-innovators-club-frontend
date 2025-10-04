@@ -74,10 +74,10 @@ export class EventForm  implements  OnInit{
       this.errorMessage = '';
       this.successMessage = '';
 
-      // Send as JSON object instead of FormData
+
       const eventData = {
         ...this.eventForm.value,
-        is_virtual: this.eventForm.value.is_virtual === true // Ensure it's a boolean
+        is_virtual: this.eventForm.value.is_virtual === true
       };
 
       if(this.isEditMode && this.eventId){
