@@ -145,6 +145,14 @@ export class EventForm  implements  OnInit{
     });
   }
 
+  private markFormAsTouched():void{
+    Object.keys(this.eventForm.controls).forEach(key => {
+      this.eventForm.get(key)?.markAsTouched();
+    });
+  }
+
+
+
   cancel() {
     if (this.isEditMode && this.eventId) {
       this.router.navigate(['/events', this.eventId]);
