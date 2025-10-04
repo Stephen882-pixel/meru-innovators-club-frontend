@@ -29,27 +29,6 @@ export class EventForm  implements  OnInit{
   successMessage = '';
   categoryChoices: CategoryChoice[] = CATEGORY_CHOICES;
 
-  // eventForm = this.fb.group({
-  //   name:['',Validators.required],
-  //   category:['',Validators.required],
-  //   title:['',Validators.required],
-  //   description:['',Validators.required],
-  //   date:['',Validators.required],
-  //   location:['',Validators.required],
-  //   organizer:['',Validators.required],
-  //   contact_email: ['', [Validators.required, Validators.email]],
-  //   is_virtual:[false]
-  // });
-
-  // ngOnInit() {
-  //   this.route.params.subscribe(params => {
-  //     if(params['id']){
-  //       this.isEditMode = true;
-  //       this.eventId = +params['id'];
-  //       this.loadEventForEdit(this.eventId);
-  //     }
-  //   });
-  // }
   ngOnInit() {
     this.initializeForm();
     this.checkEditMode();
@@ -122,7 +101,7 @@ export class EventForm  implements  OnInit{
         is_virtual:formValue.is_virtual === true
       };
       if(this.isEditMode && this.eventId){
-        this.eventService.updateEvent(eventData);
+        this.updateEvent(eventData);
       } else{
         this.createEvent(eventData);
       }
@@ -130,6 +109,23 @@ export class EventForm  implements  OnInit{
       this.markFormAsTouched();
       this.errorMessage = 'Please fill in all required fields correctly.';
     }
+  }
+
+  private createEvent(eventData:any):void{
+    this.eventService.addEvent(eventData).subscribe({
+      next: (response) => {
+        this.isSubmitting = false;
+        this.successMessage = response.message;
+        setTimeout(() => {
+          this.router.navigate(['events-list',response.data.id]);
+        },2000);
+      },
+      error: (error) => {
+        this.isSubmitting = false;
+        this.errorMessage = error.error?.message || 'Failed to create event. Please try again.';
+        console.log('Error creating event',error);
+      }
+    });
   }
 
   cancel() {
