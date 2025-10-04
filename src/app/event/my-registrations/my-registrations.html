@@ -1,1 +1,142 @@
-<p>my-registrations works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - My Event Registrations
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToEvents()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            All Events
+          </button>
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">My Event Registrations</h1>
+        <p class="text-gray-600 mt-2">View all events you have registered for</p>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+
+      <!-- Registrations List -->
+      <div *ngIf="!isLoading" class="space-y-6">
+        <div
+          *ngFor="let registration of registrations"
+          class="bg-white shadow rounded-lg overflow-hidden"
+        >
+          <div class="p-6">
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between">
+              <div class="flex-1">
+                <!-- Event Info -->
+                <div class="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900">
+                      {{ getEventName(registration.event) }}
+                    </h3>
+                    <p class="text-gray-600 text-sm mt-1">
+                      Ticket: <span class="font-mono text-blue-600">{{ registration.ticket_number }}</span>
+                    </p>
+                  </div>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        Registered
+                      </span>
+                </div>
+
+                <!-- Registration Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                  <div>
+                    <span class="font-medium text-gray-700">Full Name:</span>
+                    <p class="text-gray-900">{{ registration.full_name }}</p>
+                  </div>
+                  <div>
+                    <span class="font-medium text-gray-700">Email:</span>
+                    <p class="text-gray-900">{{ registration.email }}</p>
+                  </div>
+                  <div>
+                    <span class="font-medium text-gray-700">Course:</span>
+                    <p class="text-gray-900">{{ registration.course }}</p>
+                  </div>
+                  <div>
+                    <span class="font-medium text-gray-700">Year:</span>
+                    <p class="text-gray-900">Year {{ registration.educational_level }}</p>
+                  </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span class="font-medium text-gray-700">Phone:</span>
+                    <p class="text-gray-900">{{ registration.phone_number }}</p>
+                  </div>
+                  <div>
+                    <span class="font-medium text-gray-700">Registered On:</span>
+                    <p class="text-gray-900">{{ formatDate(registration.registration_timestamp) }}</p>
+                  </div>
+                </div>
+
+                <!-- Expectations -->
+                <div class="mt-4">
+                  <span class="font-medium text-gray-700">Expectations:</span>
+                  <p class="text-gray-900 text-sm mt-1">{{ registration.expectations }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-6 flex space-x-3">
+              <button
+                (click)="viewEventDetails(registration.event)"
+                class="bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                View Event
+              </button>
+              <button
+                (click)="downloadTicket(registration)"
+                class="bg-green-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                Download Ticket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Registrations Message -->
+      <div *ngIf="!isLoading && registrations.length === 0" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No registrations yet</h3>
+        <p class="mt-1 text-sm text-gray-500">You haven't registered for any events yet.</p>
+        <button
+          (click)="navigateToEvents()"
+          class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Browse Events
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

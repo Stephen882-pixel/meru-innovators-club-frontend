@@ -119,7 +119,7 @@ export class MyRegistrations implements OnInit{
   }
 
   navigateToEvents() {
-    this.router.navigate(['/events']);
+    this.router.navigate(['/events-list']);
   }
 
   navigateToDashboard() {

@@ -15,6 +15,7 @@ import {EventsList} from './event/events-list/events-list';
 import {EventDetails} from './event/event-details/event-details';
 import {EventRegistration} from './event/event-registration/event-registration';
 import {EventForm} from './event/event-form/event-form';
+import {MyRegistrations} from './event/my-registrations/my-registrations';
 
 export const routes: Routes = [
     {
@@ -76,5 +77,9 @@ export const routes: Routes = [
     {
         path:'event-registration/:id',
         component:EventRegistration
+    },
+    {
+        path:'my-registrations',
+        component:MyRegistrations
     }
 ];
