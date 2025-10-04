@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {EventsService} from '../../core/services/events.service';
+import {CATEGORY_CHOICES, CategoryChoice, EventsService} from '../../core/services/events.service';
 import {AuthService} from '../../core/services/auth.service';
 
 @Component({
@@ -20,33 +20,64 @@ export class EventForm  implements  OnInit{
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
+  eventForm!:FormGroup;
   isEditMode = false;
   eventId: number | null = null;
   isSubmitting = false;
   errorMessage = '';
   successMessage = '';
+  categoryChoices: CategoryChoice[] = CATEGORY_CHOICES;
 
-  eventForm = this.fb.group({
-    name:['',Validators.required],
-    category:['',Validators.required],
-    title:['',Validators.required],
-    description:['',Validators.required],
-    date:['',Validators.required],
-    location:['',Validators.required],
-    organizer:['',Validators.required],
-    contact_email: ['', [Validators.required, Validators.email]],
-    is_virtual:[false]
-  });
+  // eventForm = this.fb.group({
+  //   name:['',Validators.required],
+  //   category:['',Validators.required],
+  //   title:['',Validators.required],
+  //   description:['',Validators.required],
+  //   date:['',Validators.required],
+  //   location:['',Validators.required],
+  //   organizer:['',Validators.required],
+  //   contact_email: ['', [Validators.required, Validators.email]],
+  //   is_virtual:[false]
+  // });
 
+  // ngOnInit() {
+  //   this.route.params.subscribe(params => {
+  //     if(params['id']){
+  //       this.isEditMode = true;
+  //       this.eventId = +params['id'];
+  //       this.loadEventForEdit(this.eventId);
+  //     }
+  //   });
+  // }
   ngOnInit() {
+    this.initializeForm();
+    this.checkEditMode();
+  }
+
+  private initializeForm():void{
+    this.eventForm = this.fb.group({
+      name:['',[Validators.required,Validators.maxLength(100)]],
+      category:['',Validators.required],
+      title: ['', [Validators.required, Validators.maxLength(200)]],
+      description: ['', Validators.required],
+      date: ['', Validators.required],
+      location: ['', [Validators.required, Validators.maxLength(255)]],
+      organizer: ['', [Validators.required, Validators.maxLength(100)]],
+      contact_email: ['', [Validators.required, Validators.email]],
+      is_virtual: [false]
+    });
+  }
+
+  private checkEditMode():void{
     this.route.params.subscribe(params => {
       if(params['id']){
         this.isEditMode = true;
         this.eventId = +params['id'];
-        this.loadEventForEdit(this.eventId);
+        this.loadEventData(this.eventId);
       }
     });
   }
+
 
   loadEventForEdit(eventId:number){
     this.eventService.getEventById(eventId).subscribe({
@@ -68,49 +99,7 @@ export class EventForm  implements  OnInit{
     });
   }
 
-  onSubmit(){
-    if(this.eventForm.valid){
-      this.isSubmitting = true;
-      this.errorMessage = '';
-      this.successMessage = '';
-
-
-      const eventData = {
-        ...this.eventForm.value,
-        is_virtual: this.eventForm.value.is_virtual === true
-      };
-
-      if(this.isEditMode && this.eventId){
-        this.eventService.updateEvent(this.eventId, eventData).subscribe({
-          next: (response) => {
-            this.isSubmitting = false;
-            this.successMessage = response.message;
-            setTimeout(() => {
-              this.router.navigate(['/events', this.eventId]);
-            }, 2000)
-          },
-          error: (error) => {
-            this.isSubmitting = false;
-            this.errorMessage = error.error?.message || 'Failed to update event. Please try again.';
-          }
-        });
-      } else {
-        this.eventService.addEvent(eventData).subscribe({
-          next: (response) => {
-            this.isSubmitting = false;
-            this.successMessage = response.message;
-            setTimeout(() => {
-              this.router.navigate(['/events', response.data.id]);
-            }, 2000)
-          },
-          error: (error) => {
-            this.isSubmitting = false;
-            this.errorMessage = error.error?.message || 'Failed to create event. Please try again.';
-          }
-        });
-      }
-    }
-  }
+ // on-submit
 
   cancel() {
     if (this.isEditMode && this.eventId) {
