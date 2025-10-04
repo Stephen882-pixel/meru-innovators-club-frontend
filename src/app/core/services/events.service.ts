@@ -89,7 +89,7 @@ export class EventsService {
 
   updateEvent(eventId:number,eventData:any):Observable<EventResponse>{
     const formData = this.convertToFormData(eventData);
-    return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update`,formData);
+    return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update/`,formData);
   }
 
   private convertToFormData(eventData: any):FormData{
