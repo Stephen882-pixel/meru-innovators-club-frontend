@@ -62,6 +62,10 @@ export const routes: Routes = [
       component:EventForm
     },
     {
+        path:'events/edit',
+        component:EventForm
+    },
+    {
         path:'events-list',
         component:EventsList
     },
