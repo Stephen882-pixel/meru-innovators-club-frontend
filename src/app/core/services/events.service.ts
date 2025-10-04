@@ -52,6 +52,15 @@ export interface CategoryChoice {
   label:string;
 }
 
+export const CATEGORY_CHOICES: CategoryChoice[] = [
+  { value: 'WEB', label: 'Web Development' },
+  { value: 'CYBERSECURITY', label: 'Cyber Security' },
+  { value: 'ANDROID', label: 'Android Development' },
+  { value: 'AI', label: 'Artificial Intelligence' },
+  { value: 'BLOCKCHAIN', label: 'Blockchain' },
+  { value: 'IoT', label: 'Internet of Things' },
+  { value: 'CLOUD', label: 'Cloud Community' }
+];
 
 
 export interface RegistrationResponse {
