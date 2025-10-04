@@ -110,7 +110,12 @@ export class EventsService {
 
   formatDateForBackend(date:string):string{
     if(!date) return '';
-    return date.replace('T','');
+    return date.replace('T',' ');
+  }
+
+  formatDateForInput(date:string):string{
+    if(!date) return '';
+    return date.substring(0,16).replace(' ', 'T')
   }
 
 
