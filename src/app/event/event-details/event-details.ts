@@ -68,9 +68,9 @@ export class EventDetails implements  OnInit{
     }
   }
 
-  editEvent(){
+  editEvent(): void {
     if(this.event){
-      this.router.navigate(['/events',this.event.id]);
+      this.router.navigate(['/events', this.event.id, 'edit']);
     }
   }
 
@@ -78,7 +78,7 @@ export class EventDetails implements  OnInit{
     if(this.event && confirm('Are you sure you want to delete this event?')){
       this.eventService.deleteEvent(this.event.id).subscribe({
         next: () => {
-          this.router.navigate(['/events']);
+          this.router.navigate(['/events-list']);
         },
         error: (error) => {
           console.error('Error deleting the event:',error);
