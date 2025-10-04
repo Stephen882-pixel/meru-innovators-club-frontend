@@ -82,9 +82,14 @@ export class EventsService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  addEvent(eventData:any):Observable<EventResponse>{
+  addEvent(eventData: any): Observable<EventResponse> {
     const formData = this.convertToFormData(eventData);
-    return this.http.post<EventResponse>(`${this.apiUrl}/events/add`,formData)
+    return this.http.post<EventResponse>(`${this.apiUrl}/events/add/`, formData);
+  }
+
+  updateEvent(eventId:number,eventData:any):Observable<EventResponse>{
+    const formData = this.convertToFormData(eventData);
+    return this.http.patch<EventResponse>(`${this.apiUrl}/events/${eventId}/update`,formData);
   }
 
   private convertToFormData(eventData: any):FormData{
