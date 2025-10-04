@@ -90,7 +90,16 @@ export class EventsService {
   private convertToFormData(eventData: any):FormData{
     const formData = new FormData();
 
-
+    Object.keys(eventData).forEach(key => {
+      if(eventData[key] !== null && eventData[key]  !== undefined){
+        if(typeof eventData[key] === "boolean"){
+          formData.append(key,eventData[key].toString());
+        } else {
+          formData.append(key,eventData[key])
+        }
+      }
+    });
+    return formData;
   }
 
 
