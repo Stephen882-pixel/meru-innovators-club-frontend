@@ -174,5 +174,19 @@ export class EventForm  implements  OnInit{
     return !!(field && field.invalid && field.touched);
   }
 
+  getErrorMessage(fieldName:string):string{
+    const field = this.eventForm.get(fieldName);
+    if(!field || !field.errors) return '';
 
+    if(field.errors['required']){
+      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+    }
+    if(field.errors['email']){
+      return 'Please enter a valid email address';
+    }
+    if(field.errors['maxLength']){
+      return `Maximum length is ${field.errors['maxLength'].requiredLength} characters`;
+    }
+    return 'Invalid field';
+  }
 }
