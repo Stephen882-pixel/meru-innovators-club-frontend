@@ -153,22 +153,26 @@ export class EventForm  implements  OnInit{
 
 
 
-  cancel() {
+  onCancel(): void {
     if (this.isEditMode && this.eventId) {
-      this.router.navigate(['/events', this.eventId]);
+      this.router.navigate(['/events-list', this.eventId]);
     } else {
-      this.router.navigate(['/events']);
+      this.router.navigate(['/events-list']);
     }
   }
 
   navigateToEvents() {
-    this.router.navigate(['/events']);
+    this.router.navigate(['/events-list']);
   }
 
   navigateToDashboard() {
     this.router.navigate(['/dashboard']);
   }
 
+  hasError(fieldName:string):boolean{
+    const field = this.eventForm.get(fieldName);
+    return !!(field && field.invalid && field.touched);
+  }
 
 
 }
