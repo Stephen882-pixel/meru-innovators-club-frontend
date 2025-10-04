@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CATEGORY_CHOICES, CategoryChoice, EventsService} from '../../core/services/events.service';
 import {AuthService} from '../../core/services/auth.service';
+import {data} from 'autoprefixer';
 
 @Component({
   selector: 'app-event-form',
@@ -79,25 +80,29 @@ export class EventForm  implements  OnInit{
   }
 
 
-  loadEventForEdit(eventId:number){
-    this.eventService.getEventById(eventId).subscribe({
+  private loadEventData(id:number):void{
+    this.eventService.getEventById(id).subscribe({
       next: (response) => {
         const event = response.data;
-        const eventDate = new Date(event.date);
-        const formattedDate = eventDate.toISOString().slice(0,16);
-
         this.eventForm.patchValue({
-          ...event,
-          date: formattedDate,
-          is_virtual: event.is_virtual
+          name:event.name,
+          category:event.category,
+          title:event.title,
+          description:event.description,
+          date:this.eventService.formatDateForInput(event.date),
+          location:event.location,
+          organizer:event.organizer,
+          contact_email:event.contact_email,
+          is_virtual:event.is_virtual
         });
       },
       error: (error) => {
-        console.error('Error loading event for edit:',error);
-        this.errorMessage = 'Failed to load event details.';
+        this.errorMessage = 'Failed to load event data.';
+        console.error('Error loading events:',data);
       }
     });
   }
+
 
  // on-submit
 
