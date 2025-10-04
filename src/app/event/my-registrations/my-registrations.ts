@@ -1,8 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {EventRegistration, EventsService} from '../../core/services/events.service';
+import {EventRegistration, EventsService, MusicEvent} from '../../core/services/events.service';
 import {AuthService} from '../../core/services/auth.service';
+
 
 @Component({
   selector: 'app-my-registrations',
@@ -18,7 +19,7 @@ export class MyRegistrations implements OnInit{
   private router = inject(Router);
 
   registrations: EventRegistration[] = [];
-  eventsMap: Map<number, Event> = new Map();
+  eventsMap: Map<number, MusicEvent> = new Map();
   isLoading = true;
 
   ngOnInit() {
@@ -54,6 +55,26 @@ export class MyRegistrations implements OnInit{
     });
   }
 
+  loadEventDetails() {
+    const eventIds = [...new Set(this.registrations.map(r => r.event))];
 
+    eventIds.forEach(eventId => {
+      this.eventService.getEventById(eventId).subscribe({
+        next: (response) => {
+          this.eventsMap.set(eventId, response.data);
+        },
+        error: (error) => {
+          console.error('Error loading event details:', error);
+        }
+      });
+    });
+
+    this.isLoading = false;
+  }
+
+  getEventName(eventId: number): string {
+    const event = this.eventsMap.get(eventId);
+    return event ? event.name : `Event #${eventId}`;
+  }
 
 }
