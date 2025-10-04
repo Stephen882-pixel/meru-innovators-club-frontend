@@ -128,6 +128,23 @@ export class EventForm  implements  OnInit{
     });
   }
 
+  private updateEvent(eventData:any):void{
+    this.eventService.updateEvent(this.eventId!, eventData).subscribe({
+      next: (response) => {
+        this.isSubmitting = false;
+        this.successMessage = response.message;
+        setTimeout(() => {
+          this.router.navigate(['events-list',this.eventId]);
+        },2000);
+      },
+      error: (error) => {
+        this.isSubmitting = false;
+        this.errorMessage = error.error?.message || 'Failed to update event. Please try again.';
+        console.error('Error updating event:',error);
+      }
+    });
+  }
+
   cancel() {
     if (this.isEditMode && this.eventId) {
       this.router.navigate(['/events', this.eventId]);
