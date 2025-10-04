@@ -1,3 +1,5 @@
+<!-- src/app/components/event-form/event-form.component.html -->
+
 <div class="min-h-screen bg-gray-100">
   <!-- Navigation -->
   <nav class="bg-white shadow-sm">
@@ -38,6 +40,16 @@
         </div>
 
         <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <!-- Success Message -->
+          <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-md p-4">
+            <p class="text-green-700 text-sm">{{ successMessage }}</p>
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+
           <!-- Basic Information -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -49,9 +61,8 @@
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="e.g., Cyberquest 2025"
               >
-              <div *ngIf="eventForm.get('name')?.invalid && eventForm.get('name')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Event name is required
+              <div *ngIf="hasError('name')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('name') }}
               </div>
             </div>
 
@@ -63,18 +74,12 @@
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="">Select Category</option>
-                <option value="WEB">Web Development</option>
-                <option value="CYBERSECURITY">Cybersecurity</option>
-                <option value="AI">Artificial Intelligence</option>
-                <option value="DATA_SCIENCE">Data Science</option>
-                <option value="MOBILE">Mobile Development</option>
-                <option value="NETWORKING">Networking</option>
-                <option value="IOT">Internet of Things</option>
-                <option value="CLOUD">Cloud Computing</option>
+                <option *ngFor="let cat of categoryChoices" [value]="cat.value">
+                  {{ cat.label }}
+                </option>
               </select>
-              <div *ngIf="eventForm.get('category')?.invalid && eventForm.get('category')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Category is required
+              <div *ngIf="hasError('category')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('category') }}
               </div>
             </div>
           </div>
@@ -88,9 +93,8 @@
               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="e.g., Annual Cybersecurity Competition"
             >
-            <div *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched"
-                 class="text-red-500 text-xs mt-1">
-              Event title is required
+            <div *ngIf="hasError('title')" class="text-red-500 text-xs mt-1">
+              {{ getErrorMessage('title') }}
             </div>
           </div>
 
@@ -103,9 +107,8 @@
               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Provide a detailed description of the event..."
             ></textarea>
-            <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched"
-                 class="text-red-500 text-xs mt-1">
-              Description is required
+            <div *ngIf="hasError('description')" class="text-red-500 text-xs mt-1">
+              {{ getErrorMessage('description') }}
             </div>
           </div>
 
@@ -119,9 +122,8 @@
                 formControlName="date"
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               >
-              <div *ngIf="eventForm.get('date')?.invalid && eventForm.get('date')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Date and time are required
+              <div *ngIf="hasError('date')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('date') }}
               </div>
             </div>
 
@@ -134,9 +136,8 @@
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="e.g., KCA University, Main Campus"
               >
-              <div *ngIf="eventForm.get('location')?.invalid && eventForm.get('location')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Location is required
+              <div *ngIf="hasError('location')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('location') }}
               </div>
             </div>
           </div>
@@ -152,9 +153,8 @@
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="e.g., Tech Sisters Kenya"
               >
-              <div *ngIf="eventForm.get('organizer')?.invalid && eventForm.get('organizer')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Organizer is required
+              <div *ngIf="hasError('organizer')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('organizer') }}
               </div>
             </div>
 
@@ -167,9 +167,8 @@
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="e.g., contact@example.com"
               >
-              <div *ngIf="eventForm.get('contact_email')?.invalid && eventForm.get('contact_email')?.touched"
-                   class="text-red-500 text-xs mt-1">
-                Valid contact email is required
+              <div *ngIf="hasError('contact_email')" class="text-red-500 text-xs mt-1">
+                {{ getErrorMessage('contact_email') }}
               </div>
             </div>
           </div>
@@ -191,27 +190,19 @@
           <div class="flex justify-end space-x-3 pt-6">
             <button
               type="button"
-              (click)="cancel()"
-              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              (click)="onCancel()"
+              [disabled]="isSubmitting"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
             <button
               type="submit"
-              [disabled]="eventForm.invalid || isSubmitting"
+              [disabled]="isSubmitting"
               class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Event' : 'Create Event') }}
             </button>
-          </div>
-
-          <!-- Messages -->
-          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
-            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
-          </div>
-
-          <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-md p-4">
-            <p class="text-green-700 text-sm">{{ successMessage }}</p>
           </div>
         </form>
       </div>
