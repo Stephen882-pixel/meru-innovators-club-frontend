@@ -81,6 +81,31 @@ export class MyRegistrations implements OnInit{
     this.router.navigate(['/event-details/:id']);
   }
 
+  downloadTicket(registration:EventRegistration){
+    const ticketContent = `
+    MUSIC CLUB - EVENT TICKET
+    =========================
+
+    Event: ${this.getEventName(registration.event)}
+    Ticket Number: ${registration.ticket_number}
+    Name: ${registration.full_name}
+    Email: ${registration.email}
+    Course: ${registration.course}
+    Year: ${registration.educational_level}
+    Phone: ${registration.phone_number}
+    Registered: ${this.formatDate(registration.registration_timestamp)}
+
+    Please present this ticket at the event venue.
+    `.trim();
+
+    const blob = new Blob([ticketContent],{type:'text/plain'});
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `ticket-${registration.ticket_number}.txt`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  }
 
 
 }
