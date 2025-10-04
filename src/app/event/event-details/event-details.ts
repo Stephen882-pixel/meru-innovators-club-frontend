@@ -70,7 +70,7 @@ export class EventDetails implements  OnInit{
 
   editEvent(){
     if(this.event){
-      this.router.navigate(['/events',this.event.id,'edit']);
+      this.router.navigate(['/events','edit']);
     }
   }
 
