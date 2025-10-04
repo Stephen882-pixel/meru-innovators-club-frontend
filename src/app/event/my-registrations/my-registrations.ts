@@ -77,4 +77,10 @@ export class MyRegistrations implements OnInit{
     return event ? event.name : `Event #${eventId}`;
   }
 
+  viewEventDetails(eventId:number){
+    this.router.navigate(['/event-details/:id']);
+  }
+
+
+
 }
