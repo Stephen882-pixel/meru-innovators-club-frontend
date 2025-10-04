@@ -103,8 +103,34 @@ export class EventForm  implements  OnInit{
     });
   }
 
+  onSubmit():void{
+    if(this.eventForm.valid){
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
 
- // on-submit
+      const formValue = this.eventForm.value;
+      const eventData = {
+        name:formValue.name.trim(),
+        category:formValue.category,
+        title:formValue.title.trim(),
+        description:formValue.description.trim(),
+        date:this.eventService.formatDateForBackend(formValue.date),
+        location:formValue.location.trim(),
+        organizer:formValue.organizer.trim(),
+        contact_email:formValue.contact_email.trim(),
+        is_virtual:formValue.is_virtual === true
+      };
+      if(this.isEditMode && this.eventId){
+        this.eventService.updateEvent(eventData);
+      } else{
+        this.createEvent(eventData);
+      }
+    } else {
+      this.markFormAsTouched();
+      this.errorMessage = 'Please fill in all required fields correctly.';
+    }
+  }
 
   cancel() {
     if (this.isEditMode && this.eventId) {
