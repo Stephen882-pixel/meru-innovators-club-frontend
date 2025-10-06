@@ -167,7 +167,9 @@ export class CommunitiesService{
     return this.http.put<ClubResponse>(`${this.apiUrl}/club/`,clubData);
   }
 
-
+  getExecutives():Observable<ExecutivesResponse>{
+    return this.http.get<ExecutivesResponse>(`${this.apiUrl}/executives/`);
+  }
 
 }
 
