@@ -171,6 +171,9 @@ export class CommunitiesService{
     return this.http.get<ExecutivesResponse>(`${this.apiUrl}/executives/`);
   }
 
+  getExecutiveById(executiveId:number):Observable<ExecutiveResponse>{
+    return this.http.get<ExecutiveResponse>(`${this.apiUrl}/executives/${executiveId}/`);
+  }
 }
 
 
