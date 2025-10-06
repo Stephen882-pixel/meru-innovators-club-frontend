@@ -79,5 +79,10 @@ export interface Executive {
   };
 }
 
+export interface ExecutivesResponse {
+  message:string;
+  status:string;
+  data:Executive[];
+}
 
 
