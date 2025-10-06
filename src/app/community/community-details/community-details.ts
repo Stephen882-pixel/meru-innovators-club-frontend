@@ -62,6 +62,12 @@ export class CommunityDetails implements  OnInit{
     }
   }
 
+  editCommuity(){
+    if(this.community){
+      this.router.navigate(['/communities',this.community.id,'edit']);
+    }
+  }
+
 
 
 }
