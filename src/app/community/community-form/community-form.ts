@@ -150,4 +150,61 @@ export class CommunityForm implements OnInit{
     });
   }
 
+  onSubmit(){
+    if(this.communityForm.valid){
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      const formValue = this.communityForm.value;
+
+      const communityData = {
+        name:formValue.name,
+        description:formValue.description,
+        community_lead:parseInt(formValue.community_lead!),
+        co_lead:parseInt(formValue.co_lead!),
+        secretary:parseInt(formValue.secretary!),
+        email:formValue.email,
+        phone_number:formValue.phone_number,
+        founding_date:formValue.founding_date,
+        is_recruiting:formValue.is_recruiting,
+        tech_stack: formValue.tech_stack?.filter(tech => tech.trim() !== ''),
+        social_media:formValue.social_media?.filter(social => social.platform.trim() !== '' && social.url.trim() !==''),
+        sessions: formValue.sessions?.filter(session =>
+          session.day && session.start_time && session.end_time && session.meeting_type && session.location
+        )
+      };
+      if(this.isEditMode && this.communityId){
+        this.communitiesService.updateCommunity(this.communityId,communityData).subscribe({
+          next : (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+              this.router.navigate(['/communities',this.communityId]);
+            },2000)
+          },
+          error : (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to update community. Please try again.';
+          }
+        });
+      } else {
+        this.communitiesService.createCommunity(communityData).subscribe({
+          next : (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+              this.router.navigate(['/communities',response.data.id]);
+            },2000)
+          },
+          error : (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to create community. Please try again.';
+          }
+        });
+      }
+    }
+  }
+
+
 }
