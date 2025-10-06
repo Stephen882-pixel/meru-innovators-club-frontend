@@ -1,3 +1,6 @@
+import {inject, Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 
 export interface CommunityMember {
@@ -107,7 +110,20 @@ export interface ClubResponse {
   data:Club;
 }
 
+@Injectable({
+  providedIn:'root'
+})
+export class CommunitiesService{
+  private http = inject(HttpClient);
+  private apiUrl = environment.apiUrl;
 
+  getCommunities(page:number=1):Observable<CommunitiesResponse> {
+    let params = new HttpParams().set('page',page.toString());
+    return this.http.get<CommunitiesResponse>(`${this.apiUrl}/list-communities/`,{params});
+  }
+
+
+}
 
 
 
