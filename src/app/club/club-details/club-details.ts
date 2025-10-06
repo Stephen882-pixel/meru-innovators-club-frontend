@@ -39,5 +39,13 @@ export class ClubDetails implements OnInit{
     });
   }
 
+  getPlatformInitial(platform:string):string {
+    return platform.charAt(0).toUpperCase();
+  }
+
+  viewCommunity(communityId:number){
+    this.router.navigate(['/communities',communityId]);
+  }
+
 
 }
