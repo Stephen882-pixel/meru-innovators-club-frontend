@@ -58,7 +58,9 @@ export class CommunityForm implements OnInit{
     return this.communityForm.get('social_media') as FormArray;
   }
 
-
+  get sessions(){
+    return this.communityForm.get('sessions') as FormArray;
+  }
 
   loadCommunityForEdit(communityId:number){
     this.communitiesService.getCommunityById(communityId).subscribe({
