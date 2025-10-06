@@ -98,5 +98,8 @@ export class CommunitiesList implements OnInit{
     this.router.navigate(['/club']);
   }
 
+  createCommunity(){
+    this.router.navigate(['/communities','create']);
+  }
 
 }
