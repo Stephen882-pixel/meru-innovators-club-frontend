@@ -105,6 +105,9 @@ export class CommunityJoin implements OnInit{
     }
   }
 
+  navigateToCommunities(){
+    this.router.navigate(['/communities']);
+  }
 
 
 
