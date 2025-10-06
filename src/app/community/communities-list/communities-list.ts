@@ -94,5 +94,9 @@ export class CommunitiesList implements OnInit{
     this.router.navigate(['/dashboard']);
   }
 
+  navigateToClub(){
+    this.router.navigate(['/club']);
+  }
+
 
 }
