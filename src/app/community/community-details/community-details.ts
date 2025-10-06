@@ -68,6 +68,12 @@ export class CommunityDetails implements  OnInit{
     }
   }
 
+  viewMembers(){
+    if(this.community){
+      this.router.navigate(['/communities',this.community.id,'members']);
+    }
+  }
+
 
 
 }
