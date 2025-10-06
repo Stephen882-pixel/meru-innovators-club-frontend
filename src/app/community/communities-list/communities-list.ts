@@ -31,21 +31,22 @@ export class CommunitiesList implements OnInit{
     this.loadCommunities();
   }
 
-  loadCommunities(){
-      this.isLoading = true;
-      this.communitiesService.getCommunities(this.currentPage).subscribe({
-        next: (response) => {
-          this.communities = response.data.results;
-          this.filteredCommunities = this.communities;
-          this.hasNextPage = !!response.data.next;
-          this.hasPreviousPage = !!response.data.previous;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error loading communities:',error);
-          this.isLoading = false;
-        }
-      });
+  loadCommunities(page: number = 1) {
+    this.isLoading = true;
+    this.communitiesService.getCommunities(page).subscribe({
+      next: (response) => {
+        this.communities = response.data.results;
+        this.filteredCommunities = this.communities;
+        this.hasNextPage = !!response.data.next;
+        this.hasPreviousPage = !!response.data.previous;
+        this.currentPage = page;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading communities:', error);
+        this.isLoading = false;
+      }
+    });
   }
 
   searchCommunities(){
@@ -75,6 +76,12 @@ export class CommunitiesList implements OnInit{
 
   joinCommunity(communityId:number){
     this.router.navigate(['/communities',communityId,'join']);
+  }
+
+  nextPage() {
+    if (this.hasNextPage) {
+      this.loadCommunities(this.currentPage + 1);
+    }
   }
 
 
