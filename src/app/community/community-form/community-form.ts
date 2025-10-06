@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CommunitiesService} from '../../core/services/communities.service';
 import {AuthService} from '../../core/services/auth.service';
@@ -48,6 +48,10 @@ export class CommunityForm implements OnInit{
         this.loadCommunityForEdit(this.communityId);
       }
     });
+  }
+
+  get techStack(){
+      return this.communityForm.get('tech_stack') as FormArray;
   }
 
   loadCommunityForEdit(communityId:number){
