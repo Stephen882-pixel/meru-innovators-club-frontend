@@ -82,6 +82,19 @@ export class CommunityForm implements OnInit{
     this.socialMedia.removeAt(index);
   }
 
+  addSession(){
+    const sessionGroup = this.fb.group({
+      day:['',Validators.required],
+      start_time:['',Validators.required],
+      end_time:['',Validators.required],
+      meeting_type:['',Validators.required],
+      location:['',Validators.required]
+    });
+    this.sessions.push(sessionGroup);
+  }
+
+
+
 
   loadCommunityForEdit(communityId:number){
     this.communitiesService.getCommunityById(communityId).subscribe({
