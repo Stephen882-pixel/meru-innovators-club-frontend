@@ -141,6 +141,10 @@ export class CommunitiesService{
     return this.http.post<CommunityResponse>(`${this.apiUrl}/add-community/`,communityData);
   }
 
+  updateCommunity(communityId:number,updateData:any):Observable<CommunityResponse>{
+    return this.http.patch<CommunityResponse>(`${this.apiUrl}/update-community/${communityId}/`,updateData);
+  }
+
 
 }
 
