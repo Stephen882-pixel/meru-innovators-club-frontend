@@ -65,3 +65,19 @@ export interface CommunityResponse {
   data:Community;
 }
 
+
+export interface Executive {
+  id:number;
+  user:number;
+  community:number;
+  position:string;
+  joined_date:string;
+  user_details:UserDetails;
+  community_details:{
+    id:number;
+    name:string;
+  };
+}
+
+
+
