@@ -74,6 +74,8 @@ export class CommunityDetails implements  OnInit{
     }
   }
 
-
+  navigateToCommunities(){
+    this.router.navigate(['/communities']);
+  }
 
 }
