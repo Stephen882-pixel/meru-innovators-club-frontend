@@ -91,6 +91,18 @@ export interface ExecutiveResponse {
   data:Executive;
 }
 
+export interface Club {
+  id:number;
+  name:string;
+  about_us:string;
+  vision:string;
+  mission:string;
+  social_media:SocialMedia[];
+  communities:Community[];
+}
+
+
+
 
 
 
