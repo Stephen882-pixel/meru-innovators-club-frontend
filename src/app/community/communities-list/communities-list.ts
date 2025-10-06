@@ -90,5 +90,9 @@ export class CommunitiesList implements OnInit{
     }
   }
 
+  navigateToDashboard(){
+    this.router.navigate(['/dashboard']);
+  }
+
 
 }
