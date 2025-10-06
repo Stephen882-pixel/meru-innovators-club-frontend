@@ -7,7 +7,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-community-details',
   standalone:true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './community-details.html',
   styleUrls: ['./community-details.scss']
 })
@@ -62,7 +62,7 @@ export class CommunityDetails implements  OnInit{
     }
   }
 
-  editCommuity(){
+  editCommunity(){
     if(this.community){
       this.router.navigate(['/communities',this.community.id,'edit']);
     }

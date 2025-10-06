@@ -8,7 +8,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-my-registrations',
   standalone:true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './my-registrations.html',
   styleUrls: ['./my-registrations.scss']
 })
