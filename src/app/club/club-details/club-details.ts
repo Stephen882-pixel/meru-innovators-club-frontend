@@ -51,5 +51,10 @@ export class ClubDetails implements OnInit{
     this.router.navigate(['/communities',communityId,'join']);
   }
 
+  navigateToDashboard(){
+    this.router.navigate(['/dashboard']);
+  }
+
+
 
 }
