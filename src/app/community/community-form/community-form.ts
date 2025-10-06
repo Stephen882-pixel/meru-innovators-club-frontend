@@ -54,6 +54,12 @@ export class CommunityForm implements OnInit{
       return this.communityForm.get('tech_stack') as FormArray;
   }
 
+  get socialMedia(){
+    return this.communityForm.get('social_media') as FormArray;
+  }
+
+
+
   loadCommunityForEdit(communityId:number){
     this.communitiesService.getCommunityById(communityId).subscribe({
       next: (response) => {
