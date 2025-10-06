@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { environment } from '../../../environments/environments';
 
 
 export interface CommunityMember {
@@ -124,6 +125,11 @@ export class CommunitiesService{
 
   getCommunityById(communityId:number):Observable<CommunityResponse> {
     return this.http.get<CommunityResponse>(`${this.apiUrl}/get-community/${communityId}/`);
+  }
+
+  getCommunityByName(name:string):Observable<CommunityResponse>{
+    let params = new HttpParams().set('name',name);
+    return this.http.get<CommunityResponse>(`${this.apiUrl}/search-community/`,{params});
   }
 
 }
