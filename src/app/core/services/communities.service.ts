@@ -132,6 +132,12 @@ export class CommunitiesService{
     return this.http.get<CommunityResponse>(`${this.apiUrl}/search-community/`,{params});
   }
 
+  joinCommunity(communityId:number,memberData:{name:string,email:string}):Observable<CommunityResponse>{
+    return this.http.post<CommunityResponse>(`${this.apiUrl}/join-community/${communityId}/`,memberData);
+  }
+
+
+
 }
 
 
