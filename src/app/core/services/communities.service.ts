@@ -155,6 +155,10 @@ export class CommunitiesService{
     return this.http.get<CommunityMembersResponse>(`${this.apiUrl}/community-members/${communityId}`);
   }
 
+  getClub():Observable<ClubResponse>{
+    return this.http.get<ClubResponse>(`${this.apiUrl}/club/`);
+  }
+
 
 }
 
