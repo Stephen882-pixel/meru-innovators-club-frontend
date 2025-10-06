@@ -7,3 +7,9 @@ export interface CommunityMember {
   joined_date:string;
 }
 
+export interface SocialMedia {
+  id?:number;
+  platform:string;
+  url:string;
+}
+
