@@ -101,6 +101,12 @@ export interface Club {
   communities:Community[];
 }
 
+export interface ClubResponse {
+  message:string;
+  status:string;
+  data:Club;
+}
+
 
 
 
