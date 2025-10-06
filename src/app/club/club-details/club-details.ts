@@ -47,5 +47,9 @@ export class ClubDetails implements OnInit{
     this.router.navigate(['/communities',communityId]);
   }
 
+  joinCommunity(communityId:number){
+    this.router.navigate(['/communities',communityId,'join']);
+  }
+
 
 }
