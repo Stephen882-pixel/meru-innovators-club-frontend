@@ -85,4 +85,12 @@ export interface ExecutivesResponse {
   data:Executive[];
 }
 
+export interface ExecutiveResponse {
+  message:string;
+  status:string;
+  data:Executive;
+}
+
+
+
 
