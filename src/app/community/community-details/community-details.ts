@@ -56,4 +56,12 @@ export class CommunityDetails implements  OnInit{
     return platform.charAt(0).toUpperCase();
   }
 
+  joinCommunity() {
+    if (this.community) {
+      this.router.navigate(['/communities', this.community.id, 'join']);
+    }
+  }
+
+
+
 }
