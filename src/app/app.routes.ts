@@ -94,7 +94,7 @@ export const routes: Routes = [
         component:CommunitiesList
     },
     {
-        path:'communities/:id/',
+        path:'communities/:id',
         component:CommunityDetails
     }
 ];
