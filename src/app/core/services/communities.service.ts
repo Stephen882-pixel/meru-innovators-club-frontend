@@ -47,3 +47,14 @@ export interface Community {
   sessions:Session[];
 }
 
+
+export interface CommunitiesResponse {
+  message:string;
+  status:string;
+  data:{
+    count:number;
+    next:string | null;
+    previous:string | null;
+    results:Community[];
+  };
+}
