@@ -73,4 +73,9 @@ export class CommunitiesList implements OnInit{
     this.router.navigate(['/communities']);
   }
 
+  joinCommunity(communityId:number){
+    this.router.navigate(['/communities',communityId,'join']);
+  }
+
+
 }
