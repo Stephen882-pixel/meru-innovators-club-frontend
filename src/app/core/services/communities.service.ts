@@ -58,3 +58,10 @@ export interface CommunitiesResponse {
     results:Community[];
   };
 }
+
+export interface CommunityResponse {
+  message:string;
+  status:string;
+  data:Community;
+}
+
