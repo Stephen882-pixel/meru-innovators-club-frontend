@@ -36,6 +36,28 @@ export class CommunityJoin implements OnInit{
       const communityId = +params['id'];
       this.loadCommunityDetails(communityId);
     });
+    this.authService.currentUser$.subscribe(user => {
+      if(user){
+        this.joinForm.patchValue({
+          name:`${user.first_name} ${user.last_name}`,
+          email:user.email
+        });
+      }
+    });
+  }
+
+  loadCommunityDetails(communityId:number){
+    this.isLoading = true;
+    this.communitiesService.getCommunityById(communityId).subscribe({
+      next: (response) => {
+        this.community = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading community details:',error);
+        this.isLoading = false;
+      }
+    });
   }
 
 
