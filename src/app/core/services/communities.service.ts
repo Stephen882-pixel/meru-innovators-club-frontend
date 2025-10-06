@@ -124,9 +124,9 @@ export class CommunitiesService{
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  getCommunities(page:number=1):Observable<CommunitiesResponse> {
-    let params = new HttpParams().set('page',page.toString());
-    return this.http.get<CommunitiesResponse>(`${this.apiUrl}/list-communities/`,{params});
+  getCommunities(page: number = 1): Observable<CommunitiesResponse> {
+    let params = new HttpParams().set('page', page.toString());
+    return this.http.get<CommunitiesResponse>(`${this.apiUrl}/list-communities/`, { params });
   }
 
   getCommunityById(communityId:number):Observable<CommunityResponse> {

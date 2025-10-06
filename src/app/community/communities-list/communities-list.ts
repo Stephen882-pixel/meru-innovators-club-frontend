@@ -32,6 +32,20 @@ export class CommunitiesList implements OnInit{
   }
 
   loadCommunities(){
-
+      this.isLoading = true;
+      this.communitiesService.getCommunities(this.currentPage).subscribe({
+        next: (response) => {
+          this.communities = response.data.results;
+          this.filteredCommunities = this.communities;
+          this.hasNextPage = !!response.data.next;
+          this.hasPreviousPage = !!response.data.previous;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error loading communities:',error);
+          this.isLoading = false;
+        }
+      });
   }
+
 }
