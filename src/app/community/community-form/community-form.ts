@@ -94,6 +94,9 @@ export class CommunityForm implements OnInit{
   }
 
 
+  removeSession(index:number){
+    this.sessions.removeAt(index);
+  }
 
 
   loadCommunityForEdit(communityId:number){
