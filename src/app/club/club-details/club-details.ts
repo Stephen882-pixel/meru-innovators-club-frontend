@@ -7,7 +7,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-club-details',
   standalone:true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './club-details.html',
   styleUrls:['./club-details.scss']
 })
