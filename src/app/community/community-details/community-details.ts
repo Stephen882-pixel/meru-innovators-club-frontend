@@ -52,6 +52,8 @@ export class CommunityDetails implements  OnInit{
     });
   }
 
-
+  getPlatformInitial(platform: string): string {
+    return platform.charAt(0).toUpperCase();
+  }
 
 }
