@@ -82,3 +82,4 @@ export class CommunityDetails implements  OnInit{
     this.router.navigate(['/club']);
   }
 }
+
