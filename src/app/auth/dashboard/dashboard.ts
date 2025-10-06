@@ -36,6 +36,18 @@ export class Dashboard implements OnInit {
     this.router.navigate(['/events-list']);
   }
 
+  navigateToClub() {
+    this.router.navigate(['/club']);
+  }
+
+  navigateToCommunities() {
+    this.router.navigate(['/communities']);
+  }
+
+  navigateToExecutives() {
+    this.router.navigate(['/executives']);
+  }
+
 
 
   logout(){
