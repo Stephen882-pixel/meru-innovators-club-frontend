@@ -219,5 +219,8 @@ export class CommunityForm implements OnInit{
   }
 
 
+  navigateToClub(){
+    this.router.navigate(['/club']);
+  }
 
 }
