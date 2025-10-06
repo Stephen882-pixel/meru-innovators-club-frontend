@@ -72,7 +72,7 @@ export class CommunitiesList implements OnInit{
   }
 
   viewCommunity(communityId:number){
-    this.router.navigate(['/communities']);
+    this.router.navigate(['/communities',communityId]);
   }
 
   joinCommunity(communityId:number){
