@@ -69,6 +69,12 @@ export interface CommunityResponse {
   data:Community;
 }
 
+export interface CommunityMembersResponse{
+  status: string;
+  total_members: number;
+  data: CommunityMember[];
+}
+
 
 export interface Executive {
   id:number;
@@ -143,6 +149,10 @@ export class CommunitiesService{
 
   updateCommunity(communityId:number,updateData:any):Observable<CommunityResponse>{
     return this.http.patch<CommunityResponse>(`${this.apiUrl}/update-community/${communityId}/`,updateData);
+  }
+
+  getCommunityMembers(communityId:number):Observable<CommunityMembersResponse> {
+    return this.http.get<CommunityMembersResponse>(`${this.apiUrl}/community-members/${communityId}`);
   }
 
 
