@@ -214,6 +214,10 @@ export class CommunityForm implements OnInit{
     }
   }
 
+  navigateToCommunities(){
+    this.router.navigate(['/communities']);
+  }
+
 
 
 }
