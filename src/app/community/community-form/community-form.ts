@@ -70,6 +70,13 @@ export class CommunityForm implements OnInit{
     this.techStack.removeAt(index);
   }
 
+  addSocialMedia(){
+    const socialGroup = this.fb.group({
+      platform:['',Validators.required],
+      url:['',Validators.required]
+    });
+    this.socialMedia.push(socialGroup);
+  }
 
 
 
