@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -11,7 +11,7 @@ import {AuthService} from '../../core/services/auth.service';
   templateUrl: './community-form.html',
   styleUrls: ['./community-form.scss']
 })
-export class CommunityForm {
+export class CommunityForm implements OnInit{
 
   private fb = inject(FormBuilder);
   private communitiesService = inject(CommunitiesService);
@@ -39,5 +39,17 @@ export class CommunityForm {
     social_media:this.fb.array([]),
     sessions:this.fb.array([])
   });
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if(params['id']){
+        this.isEditMode = true;
+        this.communityId = +params['id'];
+        this.loadCommunityForEdit(this.communityId);
+      }
+    });
+  }
+
+
 
 }
