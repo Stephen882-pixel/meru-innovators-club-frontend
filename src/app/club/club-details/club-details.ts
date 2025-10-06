@@ -67,5 +67,11 @@ export class ClubDetails implements OnInit{
     this.router.navigate(['/club','edit']);
   }
 
+  createCommunity(){
+    this.router.navigate(['/communities','create']);
+  }
 
+  createClub(){
+    this.router.navigate(['/club','create']);
+  }
 }
