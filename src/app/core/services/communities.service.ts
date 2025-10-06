@@ -21,4 +21,29 @@ export interface Session {
   location:string;
 }
 
+export interface UserDetails {
+  id:number;
+  username:string;
+  email:string;
+  first_name:string;
+  last_name:string;
+}
+
+export interface Community {
+  id:number;
+  name:string;
+  community_lead_details:UserDetails;
+  co_lead_details:UserDetails;
+  secretary_details:UserDetails;
+  email:string;
+  phone_number:string;
+  social_media:SocialMedia[];
+  description:string;
+  founding_date:string;
+  total_members:number;
+  members:CommunityMember[];
+  is_recruiting:boolean;
+  tech_stack:string[];
+  sessions:Session[];
+}
 
