@@ -159,6 +159,10 @@ export class CommunitiesService{
     return this.http.get<ClubResponse>(`${this.apiUrl}/club/`);
   }
 
+  createClub(clubData:any):Observable<ClubResponse>{
+    return this.http.post<ClubResponse>(`${this.apiUrl}/club/`,clubData);
+  }
+
 
 }
 
