@@ -13,3 +13,12 @@ export interface SocialMedia {
   url:string;
 }
 
+export interface Session {
+  day:string;
+  start_time:string;
+  end_time:string;
+  meeting_type:string;
+  location:string;
+}
+
+
