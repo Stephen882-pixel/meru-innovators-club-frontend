@@ -62,6 +62,11 @@ export class CommunityForm implements OnInit{
     return this.communityForm.get('sessions') as FormArray;
   }
 
+  addTechStack(){
+    this.techStack.push(this.fb.control(''));
+  }
+
+
   loadCommunityForEdit(communityId:number){
     this.communitiesService.getCommunityById(communityId).subscribe({
       next: (response) => {
@@ -84,7 +89,7 @@ export class CommunityForm implements OnInit{
         });
 
         community.tech_stack.forEach(tech => {
-          tech.techStack.push(this.fb.control(tech));
+          this.techStack.push(this.fb.control(tech));
         });
 
         community.social_media.forEach(social => {
