@@ -63,6 +63,9 @@ export class ClubDetails implements OnInit{
     this.router.navigate(['/executives']);
   }
 
+  editClub(){
+    this.router.navigate(['/club','edit']);
+  }
 
 
 }
