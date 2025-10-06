@@ -1,1 +1,197 @@
-<p>club-details works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+          <button
+            (click)="navigateToCommunities()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Communities
+          </button>
+          <button
+            (click)="navigateToExecutives()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Executives
+          </button>
+          <button
+            *ngIf="isAdmin"
+            (click)="editClub()"
+            class="bg-yellow-600 text-white hover:bg-yellow-700 px-4 py-2 rounded-md text-sm font-medium"
+          >
+            Edit Club
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+
+      <!-- Club Details -->
+      <div *ngIf="!isLoading && club" class="space-y-8">
+        <!-- Club Header -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <div class="bg-blue-600 px-6 py-8">
+            <div class="text-center">
+              <h1 class="text-4xl font-bold text-white mb-4">{{ club.name }}</h1>
+              <p class="text-blue-100 text-lg max-w-3xl mx-auto">
+                Empowering innovation through collaboration and technology
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Mission & Vision -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white shadow rounded-lg p-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-4">About Us</h2>
+              <p class="text-gray-700 leading-relaxed">{{ club.about_us }}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white shadow rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Our Vision</h3>
+                <p class="text-gray-700">{{ club.vision }}</p>
+              </div>
+
+              <div class="bg-white shadow rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Our Mission</h3>
+                <p class="text-gray-700">{{ club.mission }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Connect With Us</h3>
+            <div class="space-y-3">
+              <div *ngFor="let social of club.social_media" class="flex items-center">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full mr-3">
+                      <span class="text-sm font-medium text-gray-700">{{ getPlatformInitial(social.platform) }}</span>
+                    </span>
+                <a
+                  [href]="social.url"
+                  target="_blank"
+                  class="text-blue-600 hover:text-blue-800 text-sm"
+                >
+                  {{ social.platform }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Communities Section -->
+        <div class="bg-white shadow rounded-lg p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Our Communities</h2>
+            <button
+              (click)="navigateToCommunities()"
+              class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium"
+            >
+              View All Communities
+            </button>
+          </div>
+
+          <div *ngIf="club.communities.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              *ngFor="let community of club.communities"
+              class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+            >
+              <div class="flex justify-between items-start mb-3">
+                <h3 class="text-lg font-semibold text-gray-900">{{ community.name }}</h3>
+                <span
+                  *ngIf="community.is_recruiting"
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                >
+                      Recruiting
+                    </span>
+              </div>
+
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ community.description }}</p>
+
+              <div class="space-y-2 text-sm text-gray-600">
+                <div class="flex justify-between">
+                  <span>Members:</span>
+                  <span class="font-medium">{{ community.total_members }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Lead:</span>
+                  <span class="font-medium">{{ community.community_lead_details.first_name }} {{ community.community_lead_details.last_name }}</span>
+                </div>
+              </div>
+
+              <div class="mt-4 flex space-x-2">
+                <button
+                  (click)="viewCommunity(community.id)"
+                  class="flex-1 bg-blue-600 text-white py-2 px-3 rounded text-sm hover:bg-blue-700"
+                >
+                  View Details
+                </button>
+                <button
+                  *ngIf="community.is_recruiting"
+                  (click)="joinCommunity(community.id)"
+                  class="flex-1 bg-green-600 text-white py-2 px-3 rounded text-sm hover:bg-green-700"
+                >
+                  Join
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="club.communities.length === 0" class="text-center py-8">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No communities yet</h3>
+            <p class="mt-1 text-sm text-gray-500">Get started by creating the first community.</p>
+            <button
+              *ngIf="isAdmin"
+              (click)="createCommunity()"
+              class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+            >
+              Create Community
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Club Prompt -->
+      <div *ngIf="!isLoading && !club && isAdmin" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No club information available</h3>
+        <p class="mt-1 text-sm text-gray-500">Create the club to get started.</p>
+        <button
+          (click)="createClub()"
+          class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Create Club
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
