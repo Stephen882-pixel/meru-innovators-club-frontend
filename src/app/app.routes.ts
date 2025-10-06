@@ -18,6 +18,7 @@ import {EventForm} from './event/event-form/event-form';
 import {MyRegistrations} from './event/my-registrations/my-registrations';
 import {ClubDetails} from './club/club-details/club-details';
 import {CommunitiesList} from './community/communities-list/communities-list';
+import {CommunityDetails} from './community/community-details/community-details';
 
 export const routes: Routes = [
     {
@@ -91,5 +92,9 @@ export const routes: Routes = [
     {
         path:'communities',
         component:CommunitiesList
+    },
+    {
+        path:'communities/:id',
+        component:CommunityDetails
     }
 ];
