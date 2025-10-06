@@ -91,6 +91,15 @@ export class CommunityJoin implements OnInit{
     });
   }
 
+  cancel(){
+    if(this.community){
+      this.router.navigate(['/communities',this.community.id]);
+    } else {
+      this.router.navigate(['/communities']);
+    }
+  }
+
+
 
 
 }
