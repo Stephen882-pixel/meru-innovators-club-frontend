@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -12,7 +12,7 @@ import {AuthService} from '../../core/services/auth.service';
   templateUrl: './community-join.html',
   styleUrls: ['./community-join.scss']
 })
-export class CommunityJoin {
+export class CommunityJoin implements OnInit{
 
   private fb = inject(FormBuilder);
   private communitiesService = inject(CommunitiesService);
@@ -30,6 +30,13 @@ export class CommunityJoin {
     name:['',Validators.required],
     email:['',[Validators.required,Validators.email]]
   });
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const communityId = +params['id'];
+      this.loadCommunityDetails(communityId);
+    });
+  }
 
 
 }
