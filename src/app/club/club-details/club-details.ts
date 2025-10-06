@@ -25,5 +25,19 @@ export class ClubDetails implements OnInit{
     this.loadClubDetails();
   }
 
+  loadClubDetails(){
+    this.isLoading = true;
+    this.communityService.getClub().subscribe({
+      next: (response) => {
+        this.club = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading club details:',error);
+        this.isLoading = false;
+      }
+    });
+  }
+
 
 }
