@@ -20,7 +20,7 @@ export class CommunitiesList implements OnInit{
   communities: Community[] = [];
   filteredCommunities: Community[] = [];
   isLoading = true;
-  searchItem = '';
+  searchTerm = '';
   recruitmentFilter = 'all';
   currentPage = 1;
   hasNextPage = false;
@@ -47,5 +47,17 @@ export class CommunitiesList implements OnInit{
         }
       });
   }
+
+  searchCommunities(){
+    if(!this.searchTerm.trim()){
+      this.filteredCommunities = this.communities;
+    } else {
+      this.filteredCommunities = this.communities.filter(community => {
+        community.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        community.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      });
+    }
+  }
+
 
 }
