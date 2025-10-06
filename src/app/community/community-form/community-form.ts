@@ -66,6 +66,12 @@ export class CommunityForm implements OnInit{
     this.techStack.push(this.fb.control(''));
   }
 
+  removeTechStack(index:number){
+    this.techStack.removeAt(index);
+  }
+
+
+
 
   loadCommunityForEdit(communityId:number){
     this.communitiesService.getCommunityById(communityId).subscribe({
