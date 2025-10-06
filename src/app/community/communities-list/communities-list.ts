@@ -84,5 +84,11 @@ export class CommunitiesList implements OnInit{
     }
   }
 
+  previousPage(){
+    if(this.hasPreviousPage){
+      this.loadCommunities(this.currentPage - 1);
+    }
+  }
+
 
 }
