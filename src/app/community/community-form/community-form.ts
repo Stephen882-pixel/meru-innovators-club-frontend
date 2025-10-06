@@ -7,7 +7,7 @@ import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-community-form',
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './community-form.html',
   styleUrls: ['./community-form.scss']
 })
@@ -168,11 +168,15 @@ export class CommunityForm implements OnInit{
         phone_number:formValue.phone_number,
         founding_date:formValue.founding_date,
         is_recruiting:formValue.is_recruiting,
-        tech_stack: formValue.tech_stack?.filter(tech => tech.trim() !== ''),
-        social_media:formValue.social_media?.filter(social => social.platform.trim() !== '' && social.url.trim() !==''),
-        sessions: formValue.sessions?.filter(session =>
-          session.day && session.start_time && session.end_time && session.meeting_type && session.location
-        )
+        tech_stack: formValue.tech_stack?.filter(tech => (tech as string).trim() !== ''),
+        social_media:formValue.social_media?.filter(social => {
+          const s = social as { platform: string; url: string };
+          return s.platform.trim() !== '' && s.url.trim() !== '';
+        }),
+        sessions: formValue.sessions?.filter(session => {
+          const s = session as { day: string; start_time: string; end_time: string; meeting_type: string; location: string };
+          return s.day && s.start_time && s.end_time && s.meeting_type && s.location;
+        })
       };
       if(this.isEditMode && this.communityId){
         this.communitiesService.updateCommunity(this.communityId,communityData).subscribe({
