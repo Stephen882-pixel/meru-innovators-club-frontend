@@ -163,6 +163,11 @@ export class CommunitiesService{
     return this.http.post<ClubResponse>(`${this.apiUrl}/club/`,clubData);
   }
 
+  updateClub(clubData:any):Observable<ClubResponse>{
+    return this.http.put<ClubResponse>(`${this.apiUrl}/club/`,clubData);
+  }
+
+
 
 }
 
