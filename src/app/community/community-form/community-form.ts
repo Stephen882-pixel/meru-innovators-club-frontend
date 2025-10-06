@@ -78,6 +78,9 @@ export class CommunityForm implements OnInit{
     this.socialMedia.push(socialGroup);
   }
 
+  removeSocialMedia(index: number) {
+    this.socialMedia.removeAt(index);
+  }
 
 
   loadCommunityForEdit(communityId:number){
