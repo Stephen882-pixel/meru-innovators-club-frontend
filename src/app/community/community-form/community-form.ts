@@ -206,5 +206,14 @@ export class CommunityForm implements OnInit{
     }
   }
 
+  cancel(){
+    if(this.isEditMode && this.communityId){
+      this.router.navigate(['/communities',this.communityId]);
+    } else {
+      this.router.navigate(['/communities']);
+    }
+  }
+
+
 
 }
