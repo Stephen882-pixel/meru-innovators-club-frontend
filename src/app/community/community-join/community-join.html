@@ -1,1 +1,198 @@
-<p>community-join works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - Join Community
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToCommunities()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            All Communities
+          </button>
+          <button
+            (click)="navigateToClub()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Club
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+
+      <!-- Community Info -->
+      <div *ngIf="!isLoading && community" class="bg-white shadow rounded-lg mb-8">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Join: {{ community.name }}</h2>
+          <p class="text-gray-600 mt-1">{{ community.description }}</p>
+        </div>
+        <div class="px-6 py-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <span class="font-medium text-gray-900">Lead:</span>
+              <span class="ml-2 text-gray-600">{{ community.community_lead_details.first_name }} {{ community.community_lead_details.last_name }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Members:</span>
+              <span class="ml-2 text-gray-600">{{ community.total_members }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Contact:</span>
+              <span class="ml-2 text-gray-600">{{ community.email }}</span>
+            </div>
+            <div>
+              <span class="font-medium text-gray-900">Founded:</span>
+              <span class="ml-2 text-gray-600">{{ formatDate(community.founding_date) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join Form -->
+      <div *ngIf="!isLoading && community && !joinSuccess" class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Join Community Form</h3>
+          <p class="text-gray-600 text-sm mt-1">Please provide your details to join this community</p>
+        </div>
+
+        <form [formGroup]="joinForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700">Full Name *</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="joinForm.get('name')?.invalid && joinForm.get('name')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Full name is required
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+              <div *ngIf="joinForm.get('email')?.invalid && joinForm.get('email')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Valid email is required
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 pt-6">
+            <button
+              type="button"
+              (click)="cancel()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="joinForm.invalid || isSubmitting"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isSubmitting ? 'Joining...' : 'Join Community' }}
+            </button>
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success State -->
+      <div *ngIf="joinSuccess" class="bg-white shadow rounded-lg">
+        <div class="px-6 py-8 text-center">
+          <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-lg font-medium text-gray-900">Successfully Joined!</h3>
+          <p class="mt-2 text-sm text-gray-600">
+            You have successfully joined <strong>{{ community?.name }}</strong>
+          </p>
+
+          <div class="mt-6 bg-gray-50 rounded-lg p-6 text-left">
+            <h4 class="text-sm font-medium text-gray-900 mb-4">What's Next?</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                You'll receive a welcome email from the community lead
+              </li>
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Check the meeting schedule and join upcoming sessions
+              </li>
+              <li class="flex items-center">
+                <svg class="h-4 w-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                Connect with other members through community channels
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-6 flex justify-center space-x-3">
+            <button
+              (click)="navigateToCommunity()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              View Community
+            </button>
+            <button
+              (click)="navigateToCommunities()"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Browse More Communities
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="!isLoading && !community" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">Community not found</h3>
+        <p class="mt-1 text-sm text-gray-500">The community you're trying to join doesn't exist.</p>
+        <button
+          (click)="navigateToCommunities()"
+          class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Back to Communities
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
