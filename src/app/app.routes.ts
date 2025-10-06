@@ -20,6 +20,7 @@ import {ClubDetails} from './club/club-details/club-details';
 import {CommunitiesList} from './community/communities-list/communities-list';
 import {CommunityDetails} from './community/community-details/community-details';
 import {CommunityJoin} from './community/community-join/community-join';
+import {CommunityForm} from './community/community-form/community-form';
 
 export const routes: Routes = [
     {
@@ -101,5 +102,13 @@ export const routes: Routes = [
     {
         path:'communities/:id/join',
         component:CommunityJoin
+    },
+    {
+        path:'communities/create',
+        component:CommunityForm
+    },
+    {
+        path:'communities/:id/edit',
+        component:CommunityForm
     }
 ];
