@@ -2,12 +2,13 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CommunitiesService, Community} from '../../core/services/communities.service';
 import {AuthService} from '../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-communities-list',
   standalone:true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './communities-list.html',
   styleUrls:['./communities-list.scss']
 })
@@ -60,10 +61,10 @@ export class CommunitiesList implements OnInit{
     }
   }
 
-  filterCommunities(){
-    if(this.recruitmentFilter === 'all'){
+  filterCommunities() {
+    if (this.recruitmentFilter === 'all') {
       this.filteredCommunities = this.communities;
-    } else if (this.recruitmentFilter === 'recruiting'){
+    } else if (this.recruitmentFilter === 'recruiting') {
       this.filteredCommunities = this.communities.filter(community => community.is_recruiting);
     } else {
       this.filteredCommunities = this.communities.filter(community => !community.is_recruiting);

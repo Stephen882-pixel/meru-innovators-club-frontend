@@ -17,6 +17,7 @@ import {EventRegistration} from './event/event-registration/event-registration';
 import {EventForm} from './event/event-form/event-form';
 import {MyRegistrations} from './event/my-registrations/my-registrations';
 import {ClubDetails} from './club/club-details/club-details';
+import {CommunitiesList} from './community/communities-list/communities-list';
 
 export const routes: Routes = [
     {
@@ -86,5 +87,9 @@ export const routes: Routes = [
     {
         path:'club',
         component:ClubDetails
+    },
+    {
+        path:'communities',
+        component:CommunitiesList
     }
 ];
