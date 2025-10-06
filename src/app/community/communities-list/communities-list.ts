@@ -69,4 +69,8 @@ export class CommunitiesList implements OnInit{
     }
   }
 
+  viewCommunity(communityId:number){
+    this.router.navigate(['/communities']);
+  }
+
 }
