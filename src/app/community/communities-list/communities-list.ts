@@ -59,5 +59,14 @@ export class CommunitiesList implements OnInit{
     }
   }
 
+  filterCommunities(){
+    if(this.recruitmentFilter === 'all'){
+      this.filteredCommunities = this.communities;
+    } else if (this.recruitmentFilter === 'recruiting'){
+      this.filteredCommunities = this.communities.filter(community => community.is_recruiting);
+    } else {
+      this.filteredCommunities = this.communities.filter(community => !community.is_recruiting);
+    }
+  }
 
 }
