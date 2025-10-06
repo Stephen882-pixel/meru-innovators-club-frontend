@@ -8,7 +8,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-community-join',
   standalone:true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './community-join.html',
   styleUrls: ['./community-join.scss']
 })
@@ -23,12 +23,13 @@ export class CommunityJoin implements OnInit{
   community: Community | null = null;
   isLoading = true;
   isSubmitting = false;
-  joinMessage = '';
+  joinSuccess = false;
   errorMessage = '';
 
+
   joinForm = this.fb.group({
-    name:['',Validators.required],
-    email:['',[Validators.required,Validators.email]]
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]]
   });
 
   ngOnInit() {
@@ -36,17 +37,19 @@ export class CommunityJoin implements OnInit{
       const communityId = +params['id'];
       this.loadCommunityDetails(communityId);
     });
+
+    // Pre-fill user data if available
     this.authService.currentUser$.subscribe(user => {
-      if(user){
+      if (user) {
         this.joinForm.patchValue({
-          name:`${user.first_name} ${user.last_name}`,
-          email:user.email
+          name: `${user.first_name} ${user.last_name}`,
+          email: user.email
         });
       }
     });
   }
 
-  loadCommunityDetails(communityId:number){
+  loadCommunityDetails(communityId: number) {
     this.isLoading = true;
     this.communitiesService.getCommunityById(communityId).subscribe({
       next: (response) => {
@@ -54,11 +57,31 @@ export class CommunityJoin implements OnInit{
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading community details:',error);
+        console.error('Error loading community details:', error);
         this.isLoading = false;
       }
     });
   }
+
+  onSubmit() {
+    if (this.joinForm.valid && this.community) {
+      this.isSubmitting = true;
+      this.errorMessage = '';
+
+      const {name, email} = this.joinForm.value;
+      this.communitiesService.joinCommunity(this.community.id,{name:name ?? '', email: email ?? ''}).subscribe({
+        next: (response) => {
+          this.isSubmitting = false;
+          this.joinSuccess = true;
+        },
+        error: (error) => {
+          this.isSubmitting = false;
+          this.errorMessage = error.error?.message || 'Failed to join community. Please try again.';
+        }
+      });
+    }
+  }
+
 
 
 }
