@@ -122,6 +122,9 @@ export class CommunitiesService{
     return this.http.get<CommunitiesResponse>(`${this.apiUrl}/list-communities/`,{params});
   }
 
+  getCommunityById(communityId:number):Observable<CommunityResponse> {
+    return this.http.get<CommunityResponse>(`${this.apiUrl}/get-community/${communityId}/`);
+  }
 
 }
 
