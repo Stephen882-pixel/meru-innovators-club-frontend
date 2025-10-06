@@ -137,6 +137,10 @@ export class CommunitiesService{
   }
 
 
+  createCommunity(communityData:any):Observable<CommunityResponse> {
+    return this.http.post<CommunityResponse>(`${this.apiUrl}/add-community/`,communityData);
+  }
+
 
 }
 
