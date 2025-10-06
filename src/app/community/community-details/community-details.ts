@@ -29,5 +29,18 @@ export class CommunityDetails implements  OnInit{
     });
   }
 
+  loadCommunityDetails(communityId:number){
+    this.isLoading = true;
+    this.communitiesService.getCommunityById(communityId).subscribe({
+      next: (response) => {
+        this.community = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading community details:',error);
+        this.isLoading = false;
+      }
+    });
+  }
 
 }
