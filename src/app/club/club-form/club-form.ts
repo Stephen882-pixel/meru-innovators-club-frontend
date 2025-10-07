@@ -100,7 +100,8 @@ export class ClubForm implements OnInit{
         vision:formValue.vision,
         mission:formValue.mission,
         social_media:formValue.social_media?.filter(social =>
-        social.platform.trim() !== '' && social.url.trim() !== ''
+        (social as { platform: string; url: string }).platform.trim() !== '' &&
+        (social as { platform: string; url: string }).url.trim() !== ''
         )
       };
 
