@@ -59,4 +59,20 @@ export class ExecutivesList implements OnInit{
       day: 'numeric'
     });
   }
+
+  viewExecutiveDetails(executiveId: number) {
+    this.router.navigate(['/executives', executiveId]);
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  navigateToClub() {
+    this.router.navigate(['/club']);
+  }
+
+  navigateToCommunities() {
+    this.router.navigate(['/communities']);
+  }
 }
