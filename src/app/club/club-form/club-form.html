@@ -1,0 +1,199 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - {{ isEditMode ? 'Edit Club' : 'Create Club' }}
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToClub()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            View Club
+          </button>
+          <button
+            (click)="navigateToDashboard()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">{{ isEditMode ? 'Edit Club Information' : 'Create Club' }}</h2>
+          <p class="text-gray-600 text-sm mt-1">
+            {{ isEditMode ? 'Update the club information below' : 'Set up the main club information' }}
+          </p>
+        </div>
+
+        <form [formGroup]="clubForm" (ngSubmit)="onSubmit()" class="px-6 py-6 space-y-6">
+          <!-- Basic Information -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Club Name *</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="e.g., Meru University Science Innovators Club"
+            >
+            <div *ngIf="clubForm.get('name')?.invalid && clubForm.get('name')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Club name is required
+            </div>
+          </div>
+
+          <div>
+            <label for="about_us" class="block text-sm font-medium text-gray-700">About Us *</label>
+            <textarea
+              id="about_us"
+              formControlName="about_us"
+              rows="4"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Describe the club's purpose and activities..."
+            ></textarea>
+            <div *ngIf="clubForm.get('about_us')?.invalid && clubForm.get('about_us')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              About us is required
+            </div>
+          </div>
+
+          <div>
+            <label for="vision" class="block text-sm font-medium text-gray-700">Vision *</label>
+            <textarea
+              id="vision"
+              formControlName="vision"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="What is the club's long-term vision?"
+            ></textarea>
+            <div *ngIf="clubForm.get('vision')?.invalid && clubForm.get('vision')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Vision is required
+            </div>
+          </div>
+
+          <div>
+            <label for="mission" class="block text-sm font-medium text-gray-700">Mission *</label>
+            <textarea
+              id="mission"
+              formControlName="mission"
+              rows="3"
+              class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              placeholder="What is the club's mission statement?"
+            ></textarea>
+            <div *ngIf="clubForm.get('mission')?.invalid && clubForm.get('mission')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Mission is required
+            </div>
+          </div>
+
+          <!-- Social Media -->
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Social Media</h3>
+              <button
+                type="button"
+                (click)="addSocialMedia()"
+                class="text-sm text-blue-600 hover:text-blue-800"
+              >
+                + Add Social Media
+              </button>
+            </div>
+            <div formArrayName="social_media" class="space-y-4">
+              <div
+                *ngFor="let social of socialMedia.controls; let i = index"
+                [formGroupName]="i"
+                class="border border-gray-200 rounded-lg p-4"
+              >
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label [for]="'platform' + i" class="block text-sm font-medium text-gray-700">Platform *</label>
+                    <select
+                      [id]="'platform' + i"
+                      formControlName="platform"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="">Select Platform</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Twitter">Twitter</option>
+                      <option value="GitHub">GitHub</option>
+                      <option value="Instagram">Instagram</option>
+                      <option value="Facebook">Facebook</option>
+                      <option value="YouTube">YouTube</option>
+                      <option value="Discord">Discord</option>
+                      <option value="Slack">Slack</option>
+                    </select>
+                    <div *ngIf="social.get('platform')?.invalid && social.get('platform')?.touched"
+                         class="text-red-500 text-xs mt-1">
+                      Platform is required
+                    </div>
+                  </div>
+                  <div>
+                    <label [for]="'url' + i" class="block text-sm font-medium text-gray-700">URL *</label>
+                    <input
+                      [id]="'url' + i"
+                      type="url"
+                      formControlName="url"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="https://..."
+                    >
+                    <div *ngIf="social.get('url')?.invalid && social.get('url')?.touched"
+                         class="text-red-500 text-xs mt-1">
+                      Valid URL is required
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  (click)="removeSocialMedia(i)"
+                  class="mt-2 text-red-600 hover:text-red-800 text-sm"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="flex justify-end space-x-3 pt-6">
+            <button
+              type="button"
+              (click)="cancel()"
+              class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="clubForm.invalid || isSubmitting"
+              class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Club' : 'Create Club') }}
+            </button>
+          </div>
+
+          <!-- Messages -->
+          <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 rounded-md p-4">
+            <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+          </div>
+
+          <div *ngIf="successMessage" class="bg-green-50 border border-green-200 rounded-md p-4">
+            <p class="text-green-700 text-sm">{{ successMessage }}</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

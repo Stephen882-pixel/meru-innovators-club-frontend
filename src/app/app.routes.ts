@@ -21,6 +21,7 @@ import {CommunitiesList} from './community/communities-list/communities-list';
 import {CommunityDetails} from './community/community-details/community-details';
 import {CommunityJoin} from './community/community-join/community-join';
 import {CommunityForm} from './community/community-form/community-form';
+import {ClubForm} from './club/club-form/club-form';
 
 export const routes: Routes = [
     {
@@ -99,16 +100,34 @@ export const routes: Routes = [
         path:'communities/:id',
         component:CommunityDetails
     },
-    {
-        path:'communities/:id/join',
-        component:CommunityJoin
-    },
-    {
-        path:'communities/create',
-        component:CommunityForm
-    },
-    {
-        path:'communities/:id/edit',
-        component:CommunityForm
-    }
+      {
+      path: 'communities/:id/join',
+      loadComponent: () => import('./community/community-join/community-join')
+        .then(c => c.CommunityJoin),
+      canActivate: [authGuard]
+      },
+      {
+        path: 'communities/create',
+        loadComponent: () => import('./community/community-form/community-form')
+          .then(c => c.CommunityForm),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'communities/:id/edit',
+        loadComponent: () => import('./community/community-form/community-form')
+          .then(c => c.CommunityForm),
+        canActivate: [authGuard]
+      },
+      {
+          path: 'club/create',
+          loadComponent: () => import('./club/club-form/club-form')
+            .then(c => c.ClubForm),
+          canActivate: [authGuard]
+      },
+      {
+        path: 'club/edit',
+        loadComponent: () => import('./club/club-form/club-form')
+          .then(c => c.ClubForm),
+        canActivate: [authGuard]
+      }
 ];
