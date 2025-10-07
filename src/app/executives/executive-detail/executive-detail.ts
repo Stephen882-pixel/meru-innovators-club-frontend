@@ -61,4 +61,21 @@ export class ExecutiveDetail implements OnInit{
     });
   }
 
+  viewCommunity() {
+    if (this.executive) {
+      this.router.navigate(['/communities', this.executive.community]);
+    }
+  }
+
+  navigateToExecutives() {
+    this.router.navigate(['/executives']);
+  }
+
+  navigateToClub() {
+    this.router.navigate(['/club']);
+  }
+
+  navigateToCommunities() {
+    this.router.navigate(['/communities']);
+  }
 }
