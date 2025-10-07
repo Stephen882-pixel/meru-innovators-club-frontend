@@ -39,4 +39,26 @@ export class ExecutiveDetail implements OnInit{
     });
   }
 
+  getInitials(firstName: string, lastName: string): string {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  }
+
+  formatPosition(position: string): string {
+    const positionMap: { [key: string]: string } = {
+      'LEAD': 'Community Lead',
+      'CO_LEAD': 'Co-Lead',
+      'SECRETARY': 'Secretary'
+    };
+    return positionMap[position] || position;
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
 }
