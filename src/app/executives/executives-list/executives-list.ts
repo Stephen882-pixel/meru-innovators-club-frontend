@@ -35,5 +35,7 @@ export class ExecutivesList implements OnInit{
     });
   }
 
-
+  getExecutivesByPosition(position:string): Executive[] {
+    return this.executives.filter(exec => exec.position === position);
+  }
 }
