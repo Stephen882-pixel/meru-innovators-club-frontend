@@ -145,5 +145,8 @@ export class ClubForm implements OnInit{
     this.router.navigate(['/club']);
   }
 
+  navigateToDashboard(){
+    this.router.navigate(['/dashboard']);
+  }
 
 }
