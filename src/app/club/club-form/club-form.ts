@@ -65,5 +65,25 @@ export class ClubForm implements OnInit{
     });
   }
 
+  populateForm(){
+    if(this.existingClub){
+      this.clubForm.patchValue({
+        name:this.existingClub.name,
+        about_us: this.existingClub.about_us,
+        vision:this.existingClub.vision,
+        mission: this.existingClub.mission
+      });
+
+      while(this.socialMedia.length) this.socialMedia.removeAt(0);
+
+      this.existingClub.social_media.forEach(social => {
+        const socialGroup = this.fb.group({
+          platForm:[social.platform,Validators.required],
+          url:[social.url,[Validators.required,Validators.pattern('https?://.+')]]
+        });
+        this.socialMedia.push(socialGroup);
+      });
+    }
+  }
 
 }
