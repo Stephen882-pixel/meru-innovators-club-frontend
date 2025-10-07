@@ -8,7 +8,7 @@ import {AuthService} from '../../core/services/auth.service';
 @Component({
   selector: 'app-club-form',
   standalone:true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './club-form.html',
   styleUrls:['./club-form.scss']
 })
