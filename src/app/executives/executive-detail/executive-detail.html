@@ -1,0 +1,178 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">
+            MUSIC Club - Executive Profile
+          </h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            (click)="navigateToExecutives()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            All Executives
+          </button>
+          <button
+            (click)="navigateToClub()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Club
+          </button>
+          <button
+            (click)="navigateToCommunities()"
+            class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            Communities
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 sm:px-0">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+
+      <!-- Executive Details -->
+      <div *ngIf="!isLoading && executive" class="bg-white shadow rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-blue-600 px-6 py-8">
+          <div class="flex items-center space-x-6">
+            <div class="flex-shrink-0">
+              <div class="h-24 w-24 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-bold">
+                {{ getInitials(executive.user_details.first_name, executive.user_details.last_name) }}
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center space-x-2 mb-2">
+                <h1 class="text-3xl font-bold text-white">
+                  {{ executive.user_details.first_name }} {{ executive.user_details.last_name }}
+                </h1>
+                <span
+                  [class.bg-blue-500]="executive.position === 'LEAD'"
+                  [class.bg-green-500]="executive.position === 'CO_LEAD'"
+                  [class.bg-purple-500]="executive.position === 'SECRETARY'"
+                  class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white"
+                >
+                      {{ formatPosition(executive.position) }}
+                    </span>
+              </div>
+              <p class="text-blue-100 text-lg">{{ executive.community_details.name }}</p>
+              <p class="text-blue-200">{{ executive.user_details.email }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-6 py-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Personal Information -->
+            <div class="lg:col-span-2">
+              <h2 class="text-xl font-semibold text-gray-900 mb-4">Profile Information</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-sm font-medium text-gray-500 mb-2">Personal Details</h3>
+                  <dl class="space-y-3">
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Username</dt>
+                      <dd class="text-sm text-gray-900">{{ executive.user_details.username }}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Email</dt>
+                      <dd class="text-sm text-gray-900">{{ executive.user_details.email }}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Full Name</dt>
+                      <dd class="text-sm text-gray-900">{{ executive.user_details.first_name }} {{ executive.user_details.last_name }}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div>
+                  <h3 class="text-sm font-medium text-gray-500 mb-2">Role Details</h3>
+                  <dl class="space-y-3">
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Position</dt>
+                      <dd class="text-sm text-gray-900">{{ formatPosition(executive.position) }}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Community</dt>
+                      <dd class="text-sm text-gray-900">{{ executive.community_details.name }}</dd>
+                    </div>
+                    <div>
+                      <dt class="text-sm font-medium text-gray-700">Joined Role</dt>
+                      <dd class="text-sm text-gray-900">{{ formatDate(executive.joined_date) }}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
+            <!-- Community Information -->
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Community Information</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="text-sm font-medium text-gray-700">Current Community</h4>
+                  <p class="text-sm text-gray-900">{{ executive.community_details.name }}</p>
+                </div>
+                <div>
+                  <button
+                    (click)="viewCommunity()"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    View Community
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Description -->
+          <div class="mt-8 border-t border-gray-200 pt-8">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Role Responsibilities</h3>
+            <div class="prose max-w-none text-gray-700">
+              <p *ngIf="executive.position === 'LEAD'" class="text-sm">
+                As a Community Lead, you are responsible for guiding the community's direction,
+                organizing activities, mentoring members, and ensuring the community achieves its goals.
+                You serve as the primary point of contact and represent the community in club-wide activities.
+              </p>
+              <p *ngIf="executive.position === 'CO_LEAD'" class="text-sm">
+                As a Co-Lead, you support the Community Lead in managing the community,
+                coordinating events, assisting members, and helping with administrative tasks.
+                You play a crucial role in ensuring the smooth operation of community activities.
+              </p>
+              <p *ngIf="executive.position === 'SECRETARY'" class="text-sm">
+                As a Secretary, you handle administrative duties including maintaining records,
+                managing communications, scheduling meetings, and documenting community activities.
+                You ensure proper documentation and smooth communication within the community.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="!isLoading && !executive" class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">Executive not found</h3>
+        <p class="mt-1 text-sm text-gray-500">The executive profile you're looking for doesn't exist.</p>
+        <button
+          (click)="navigateToExecutives()"
+          class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Back to Executives
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

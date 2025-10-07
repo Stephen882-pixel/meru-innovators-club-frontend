@@ -23,6 +23,7 @@ import {CommunityJoin} from './community/community-join/community-join';
 import {CommunityForm} from './community/community-form/community-form';
 import {ClubForm} from './club/club-form/club-form';
 import {ExecutivesList} from './executives/executives-list/executives-list';
+import {ExecutiveDetail} from './executives/executive-detail/executive-detail';
 
 export const routes: Routes = [
     {
@@ -135,7 +136,10 @@ export const routes: Routes = [
     path: 'executives',
     loadComponent: () => import('./executives/executives-list/executives-list')
       .then(c => c.ExecutivesList)
+  },
+  {
+    path: 'executives/:id',
+    loadComponent: () => import('./executives/executive-detail/executive-detail')
+      .then(c => c.ExecutiveDetail)
   }
-
-
 ];
