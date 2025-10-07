@@ -136,4 +136,9 @@ export class ClubForm implements OnInit{
     }
   }
 
+  cancel(){
+    this.router.navigate(['/club']);
+  }
+
+
 }
