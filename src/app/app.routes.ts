@@ -22,6 +22,7 @@ import {CommunityDetails} from './community/community-details/community-details'
 import {CommunityJoin} from './community/community-join/community-join';
 import {CommunityForm} from './community/community-form/community-form';
 import {ClubForm} from './club/club-form/club-form';
+import {ExecutivesList} from './executives/executives-list/executives-list';
 
 export const routes: Routes = [
     {
@@ -100,34 +101,41 @@ export const routes: Routes = [
         path:'communities/:id',
         component:CommunityDetails
     },
-      {
-      path: 'communities/:id/join',
-      loadComponent: () => import('./community/community-join/community-join')
-        .then(c => c.CommunityJoin),
+    {
+    path: 'communities/:id/join',
+    loadComponent: () => import('./community/community-join/community-join')
+      .then(c => c.CommunityJoin),
+    canActivate: [authGuard]
+    },
+    {
+      path: 'communities/create',
+      loadComponent: () => import('./community/community-form/community-form')
+        .then(c => c.CommunityForm),
       canActivate: [authGuard]
-      },
-      {
-        path: 'communities/create',
-        loadComponent: () => import('./community/community-form/community-form')
-          .then(c => c.CommunityForm),
-        canActivate: [authGuard]
-      },
-      {
-        path: 'communities/:id/edit',
-        loadComponent: () => import('./community/community-form/community-form')
-          .then(c => c.CommunityForm),
-        canActivate: [authGuard]
-      },
-      {
-          path: 'club/create',
-          loadComponent: () => import('./club/club-form/club-form')
-            .then(c => c.ClubForm),
-          canActivate: [authGuard]
-      },
-      {
-        path: 'club/edit',
+    },
+    {
+      path: 'communities/:id/edit',
+      loadComponent: () => import('./community/community-form/community-form')
+        .then(c => c.CommunityForm),
+      canActivate: [authGuard]
+    },
+    {
+        path: 'club/create',
         loadComponent: () => import('./club/club-form/club-form')
           .then(c => c.ClubForm),
         canActivate: [authGuard]
-      }
+    },
+    {
+      path: 'club/edit',
+      loadComponent: () => import('./club/club-form/club-form')
+        .then(c => c.ClubForm),
+      canActivate: [authGuard]
+    },
+  {
+    path: 'executives',
+    loadComponent: () => import('./executives/executives-list/executives-list')
+      .then(c => c.ExecutivesList)
+  }
+
+
 ];

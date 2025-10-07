@@ -6,7 +6,7 @@ import {CommunitiesService, Executive} from '../../core/services/communities.ser
 @Component({
   selector: 'app-executives-list',
   standalone:true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './executives-list.html',
   styleUrls:['./executives-list.scss']
 })
