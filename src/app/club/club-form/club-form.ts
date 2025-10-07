@@ -52,4 +52,18 @@ export class ClubForm implements OnInit{
     this.socialMedia.removeAt(index);
   }
 
+  loadExistingClub(){
+    this.communitiesService.getClub().subscribe({
+      next: (response) => {
+        this.existingClub = response.data;
+        this.isEditMode = true;
+        this.populateForm();
+      },
+      error: (error) => {
+        this.isEditMode = false;
+      }
+    });
+  }
+
+
 }
