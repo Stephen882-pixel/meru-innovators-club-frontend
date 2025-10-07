@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RouterLink, RouterLinkWithHref} from '@angular/router';
+import {Router, RouterLink, RouterLinkWithHref} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {Club, CommunitiesService} from '../../core/services/communities.service';
 import {AuthService} from '../../core/services/auth.service';
@@ -16,7 +16,7 @@ export class ClubForm implements OnInit{
   private fb = inject(FormBuilder);
   private communitiesService = inject(CommunitiesService);
   private authService = inject(AuthService);
-  private router = inject(RouterLinkWithHref);
+  private router = inject(Router);
 
   isEditMode = false;
   isSubmitting = false;
@@ -83,6 +83,56 @@ export class ClubForm implements OnInit{
         });
         this.socialMedia.push(socialGroup);
       });
+    }
+  }
+
+  onSubmit(){
+    if(this.clubForm.valid){
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      const formValue = this.clubForm.value;
+
+      const clubData = {
+        name:formValue.name,
+        about_us:formValue.about_us,
+        vision:formValue.vision,
+        mission:formValue.mission,
+        social_media:formValue.social_media?.filter(social =>
+        social.platform.trim() !== '' && social.url.trim() !== ''
+        )
+      };
+
+      if(this.isEditMode){
+        this.communitiesService.updateClub(clubData).subscribe({
+          next : (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+                this.router.navigate(['/club']);
+            },2000);
+          },
+          error : (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to update club. Please try again';
+          }
+        });
+      } else {
+        this.communitiesService.createClub(clubData).subscribe({
+          next: (response) => {
+            this.isSubmitting = false;
+            this.successMessage = response.message;
+            setTimeout(() => {
+                this.router.navigate(['/club']);
+            },2000);
+          },
+          error: (error) => {
+            this.isSubmitting = false;
+            this.errorMessage = error.error?.message || 'Failed to create club. Please try again';
+          }
+        });
+      }
     }
   }
 
