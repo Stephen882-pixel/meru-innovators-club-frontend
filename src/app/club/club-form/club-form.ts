@@ -141,4 +141,9 @@ export class ClubForm implements OnInit{
   }
 
 
+  navigateToClub(){
+    this.router.navigate(['/club']);
+  }
+
+
 }
