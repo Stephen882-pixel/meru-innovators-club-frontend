@@ -25,4 +25,18 @@ export class ExecutiveDetail implements OnInit{
     });
   }
 
+  loadExecutiveDetails(executiveId: number) {
+    this.isLoading = true;
+    this.communitiesService.getExecutiveById(executiveId).subscribe({
+      next: (response) => {
+        this.executive = response.data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading executive details:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
 }
