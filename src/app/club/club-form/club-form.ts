@@ -40,4 +40,13 @@ export class ClubForm implements OnInit{
     return this.clubForm.get('social_media') as FormArray;
   }
 
+  addSocialMedia(){
+    const socialGroup = this.fb.group({
+      platform:['',Validators.required],
+      url: ['', [Validators.required, Validators.pattern('https?://.+')]]
+    });
+    this.socialMedia.push(socialGroup);
+  }
+
+
 }
