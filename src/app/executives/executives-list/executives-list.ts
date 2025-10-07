@@ -38,4 +38,8 @@ export class ExecutivesList implements OnInit{
   getExecutivesByPosition(position:string): Executive[] {
     return this.executives.filter(exec => exec.position === position);
   }
+
+  getInitials(firstName:string,lastName:string):string {
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  }
 }
