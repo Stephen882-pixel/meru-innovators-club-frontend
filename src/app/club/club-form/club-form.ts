@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RouterLink, RouterLinkWithHref} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {Club, CommunitiesService} from '../../core/services/communities.service';
@@ -36,5 +36,8 @@ export class ClubForm implements OnInit{
     this.loadExistingClub();
   }
 
+  get socialMedia(){
+    return this.clubForm.get('social_media') as FormArray;
+  }
 
 }
